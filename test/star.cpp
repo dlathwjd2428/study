@@ -15,7 +15,7 @@ int main()
 			printf(" "); 
 			
 		}
-		for (int k = 0; k < blank-star+1 ;k++)
+		for (int k = 0; k < blank-star ;k++)
 		{
 			printf(" *");
 		}		
