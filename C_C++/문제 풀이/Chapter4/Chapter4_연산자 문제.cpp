@@ -42,7 +42,7 @@ void Q2()
 
 	avg = (Kor + Math + Eng) / 3.f;
 
-	(avg >= 60) ? printf("Æò±Õ %f ÇÕ°Ý", avg) : printf("Æò±Õ %f ºÒÇÕ°Ý", avg);
+	(avg >= 60) ? printf("Æò±Õ %.2f ÇÕ°Ý", avg) : printf("Æò±Õ %.2f ºÒÇÕ°Ý", avg);
 }
 void Q3()
 {

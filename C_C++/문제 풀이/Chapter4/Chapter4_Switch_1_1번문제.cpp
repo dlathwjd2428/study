@@ -5,9 +5,9 @@ int menu();
 
 void main()
 {
-	char name[20] = { 0 };
+	char name[20] = {0};
 	int Kor = 0, Math = 0, Eng = 0;
-	float avg = 0.f;	
+	float avg = 0.f;
 
 	while (1)
 	{
@@ -30,36 +30,38 @@ void main()
 
 		case 3:
 			system("cls");
-			if (name != 0 && Kor != 0 && Math != 0 && Eng != 0)
+			if ((name[0] != 0) && Kor != 0 && Math != 0 && Eng != 0)
 			{
 				avg = (Kor + Math + Eng) / 3.0f;
 
 				puts("====================");
-				printf("%s님의 점수\n",name);
-				printf("\n국어 점수 : %d", Kor);
+				printf("%s님의 점수\n", name);
+				printf("국어 점수 : %d", Kor);
 				printf("\n수학 점수 : %d", Math);
 				printf("\n영어 점수 : %d ", Eng);
 				printf("\n합계 점수 : %d ", Kor + Math + Eng);
 				printf("\n평균 점수 : %.2f ", avg);
-				puts("====================");
-		
+				puts("\n====================");
+
 			}
-			else
+			else if (name[0] == 0)
 			{
-				if (name == 0||)
-				{
-					printf("이름을 입력하세요");
-				}
-				else
-				{
-					printf("점수를 입력하세요");
-				}
+				printf("이름을 입력하세요\n");
+			}
+
+			if(Kor == 0 || Math == 0 || Eng == 0)
+			{
+				printf("점수를 입력하세요\n");
 			}
 
 			system("pause");
 
 			break;
-			
+
+		case 4:
+			exit(0);
+
+			break;
 
 		default:
 			printf("잘못된 수 입니다. 다시 입력해주세요.");
