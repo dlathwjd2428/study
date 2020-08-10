@@ -85,7 +85,7 @@ void Q4(int Arr[])
 			for (int i = 0; i < 10; i++)
 			{
 				printf("%d, ", Arr[i]);
-			}					
+			}
 			break;
 
 		case 2:
@@ -107,12 +107,12 @@ void Q4(int Arr[])
 int menu()
 {
 	int choose = 0;
-	
+
 	printf("\n\n\n1. 오름차순 정렬\n");
 	printf("2. 내림차순 정렬\n");
 	printf("\n============>");
 
-	scanf_s("%d", &choose);	
+	scanf_s("%d", &choose);
 
 	return choose;
 }
