@@ -1,44 +1,24 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 int main()
 {
-	//int ver = 0; //세로
-	//int hor = 0; //가로
+	int row = 0, col = 0;
+	scanf("%d %d", &row, &col);
+	int **map;
 
-	//scanf_s("%d %d", &ver, &hor);
+	map = (int*)malloc(sizeof(int)) * row;
 
-	int map[5][5] = {{0,1,0,1,0},
-					 {1,0,1,0,1},
-					 {0,1,0,1,0},
-					 {1,0,1,0,1}, 
-					 {0,1,0,1,0},};
-
-	for (int y = 0; y < 5; y++)
+	for (int i = 0; i < row; i++)            // 세로 크기만큼 반복
 	{
-		for (int x = 0; x < 5; x++)
-		{
-			if (map[y][x] == 0)
-			{
-				printf("□");
-			}
-			else
-			{
-				printf("■");
-			}
-		}
-		printf("\n");
+		map[i] = (int*)malloc(sizeof(int) * col);    // (int의 크기 * col)만큼 동적 메모리 할당. 배열의 가로
 	}
-
-	/*switch (map[5][5])
+	
+	for (int i = 0; i < row; i++)    // 세로 크기만큼 반복
 	{
-	case 0:
-		printf("□");
-		break;
-	case 1:
-		printf("■");
-		break;
-	default:
-		break;
-	}*/
-
+		for (int j = 0; j < col; j++)    // 가로 크기만큼 반복
+		{
+			map[i][j] = i + j;             // 2차원 배열의 각 요소에 i + j 값을 할당
+		}
+	}
 }
