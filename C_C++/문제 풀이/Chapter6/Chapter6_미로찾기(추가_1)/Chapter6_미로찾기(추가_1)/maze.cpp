@@ -12,7 +12,7 @@
 
 #define END 3//°ÔÀÓ ³¡ 
 #define E_MAX 1
-
+#define PUSH_BLOCK 5
 #define POTAL_MAX 8//Æ÷Å» °¹¼ö
 #define ENTRY_START 10
 #define EXIT_START 20
@@ -32,9 +32,9 @@
 #define WIDTH 20
 #define HEIGHT 20
 int map[HEIGHT][WIDTH] = {
-	{ 1,  1,  1,  1,  1,  1,  1,  1,  1,	1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 },
+	{ 1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 },
 	{ 1,  2,  1, 11,  0,  0,  1, 23,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 14,  1 },
-	{ 1,  0,  1,  1,  1,  0,  1,  1,  1,  0,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 },
+	{ 1,  0,  0,  0,  0,  0,  5,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 },
 	{ 1,  0,  0, 10,  1, 20,  1, 26,  1,  0,  1,  1, 52,  1, 16,  0,  1,  1,  1,  1 },
 	{ 1,  1,  1,  1,  1,  1,  1,  0,  1,  0, 51,  1,  0,  0,  1,  0,  1, 25,  1,  1 },
 	{ 1,  0,  0,  0,  0,  1, 30,  0,  1,  1,  1,  1,  1,  0,  1,  0,  1,  0,  0,  1 },
@@ -54,6 +54,7 @@ int map[HEIGHT][WIDTH] = {
 	{ 1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 } };
 
 int character[2];
+int push_block[2];
 int Entry_Potal[POTAL_MAX][2];
 int Exit_Potal[POTAL_MAX][2];
 
@@ -213,6 +214,10 @@ void MapDraw()
 					printf("¡Ú");
 				ORIGINAL
 			}
+			else if (map[y][x] == PUSH_BLOCK)
+			{
+					printf("¡à");
+			}
 			else if (Find_Entry(x, y) != -1)
 			{
 				BLUE
@@ -355,18 +360,26 @@ void Move()
 	case LEFT:
 		if (map[character[Y]][character[X] - 1] != WALL && Find_BExit(character[X] - 1, character[Y]) == -1)
 			character[X]--;
+		if (map[character[Y]][character[X]] == PUSH_BLOCK)
+			push_block[X]--;
 		break;
 	case RIGHT:
 		if (map[character[Y]][character[X] + 1] != WALL && Find_BExit(character[X] + 1, character[Y]) == -1)
 			character[X]++;
+		if (map[character[Y]][character[X]] == PUSH_BLOCK)
+			push_block[X]++;
 		break;
 	case UP:
 		if (map[character[Y] - 1][character[X]] != WALL && Find_BExit(character[X], character[Y] - 1) == -1)
 			character[Y]--;
+		if (map[character[Y]][character[X]] == PUSH_BLOCK)
+			push_block[Y]--;
 		break;
 	case DOWN:
 		if (map[character[Y] + 1][character[X]] != WALL && Find_BExit(character[X], character[Y] + 1) == -1)
 			character[Y]++;
+		if (map[character[Y]][character[X]] == PUSH_BLOCK)
+			push_block[Y]++;
 		break;
 	}
 	MoveCheck();
