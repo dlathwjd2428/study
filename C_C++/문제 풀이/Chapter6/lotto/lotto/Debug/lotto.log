@@ -1,3 +1,0 @@
-﻿  lotto.cpp
-c:\users\a05\source\repos\lotto\lotto\lotto.cpp(7): warning C4326: 'main'의 반환 형식이 'int'이어야 하는데 'void'입니다.
-  lotto.vcxproj -> C:\Users\A05\source\repos\lotto\Debug\lotto.exe
