@@ -29,29 +29,8 @@
 #define RIGHT 77
 #define UP 72
 #define DOWN 80
-#define WIDTH 20
-#define HEIGHT 20
-int map[HEIGHT][WIDTH] = {
-	{ 1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 },
-	{ 1,  2,  1, 11,  0,  0,  1, 23,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 14,  1 },
-	{ 1,  0,  0,  0,  0,  0,  5,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0 },
-	{ 1,  0,  0, 10,  1, 20,  1, 26,  1,  0,  1,  1, 52,  1, 16,  0,  1,  1,  1,  1 },
-	{ 1,  1,  1,  1,  1,  1,  1,  0,  1,  0, 51,  1,  0,  0,  1,  0,  1, 25,  1,  1 },
-	{ 1,  0,  0,  0,  0,  1, 30,  0,  1,  1,  1,  1,  1,  0,  1,  0,  1,  0,  0,  1 },
-	{ 1,  0,  1,  1,  0,  1,  1,  1,  1,  0,  0, 60,  1,  0,  1,  0,  1,  1,  0,  1 },
-	{ 1,  0, 21,  1,  0,  1,  0,  0,  0,  0,  1,  0,  1,  0,  1,  0,  0,  1,  0,  1 },
-	{ 1,  1,  1,  1,  0,  1,  0,  1,  1, 50,  1,  0,  1,  0,  1,  1,  0,  0,  0,  1 },
-	{ 1,  0,  0,  0,  0,  1,  0,  1,  1,  1,  1,  0,  0,  0, 62,  1,  1,  1,  1,  1 },
-	{ 1,  0,  0,  1,  1,  1,  0,  1, 17,  0,  1,  1,  1,  1,  0,  0,  0,  0,  0,  1 },
-	{ 1, 12, 13,  1,  0,  0,  0,  1,  0,  0,  0,  0,  0,  1,  1,  1,  1,  1,  0,  1 },
-	{ 1,  1,  1,  1,  0,  1,  1,  1,  1,  1,  1,  1,  0, 63,  1,  0,  0,  0,  0,  1 },
-	{ 1, 22, 24,  1,  0,  1, 27,  0,  0,  0,  0,  0,  1,  0,  1,  0,  1,  1,  1,  1 },
-	{ 1,  0,  0,  1,  0,  1,  1,  1,  1,  1,  1,  0,  1,  0,  1,  0, 41,  0, 53,  1 },
-	{ 1,  0,  1,  1,  0,  1,  0,  0,  0,  0,  0,  0,  1,  0,  0,  0,  1,  1,  1,  1 },
-	{ 1,  0,  0,  1,  0,  1,  0,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  0,  1,  1 },
-	{ 1,  1, 61,  1,  40, 1,  0,  1, 42,  1,  0,  0,  0,  1,  0,  0,  0,  0,  0,  1 },
-	{ 1, 31,  0, 15,  1, 32,  0,  1,  0,  0,  0,  1,  0,  0,  0,  1,  0,  1,  0,  3 },
-	{ 1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1 } };
+
+extern char map[HEIGHT][WIDTH][STAGE];
 
 int character[2];
 int push_block[2];
@@ -144,6 +123,21 @@ void Init()
 	sprintf(buf, "mode con: lines=%d cols=%d", Height, Width);
 	system(buf);
 
+	//for (r = 9; r <= 9; r++)
+	//{
+	//	x = 0, y = 9;
+	//	for (a = 0; a <= 9; a++)
+	//	{
+	//		for (b = 0; b <= 9; b++)
+	//			board[a][b] = map[r][a][b];
+	//	}
+	//}
+
+	for (r = 9; r <= 9; r++)
+	{
+
+	}
+
 	for (int y = 0; y < HEIGHT; y++)
 	{
 		for (int x = 0; x < WIDTH; x++)
@@ -157,6 +151,11 @@ void Init()
 			{
 				End_Potal[map[y][x] - END][X] = x;
 				End_Potal[map[y][x] - END][Y] = y;
+			}
+			else if (map[y][x] == PUSH_BLOCK)
+			{
+				push_block[map[y][x] - PUSH_BLOCK] = x;
+				push_block[map[y][x] - PUSH_BLOCK] = y;
 			}
 			else if (map[y][x] >= ENTRY_START && map[y][x] < ENTRY_START + POTAL_MAX)
 			{
@@ -360,25 +359,25 @@ void Move()
 	case LEFT:
 		if (map[character[Y]][character[X] - 1] != WALL && Find_BExit(character[X] - 1, character[Y]) == -1)
 			character[X]--;
-		if (map[character[Y]][character[X]] == PUSH_BLOCK)
+		if (map[character[Y]][character[X]+1] == PUSH_BLOCK)
 			push_block[X]--;
 		break;
 	case RIGHT:
 		if (map[character[Y]][character[X] + 1] != WALL && Find_BExit(character[X] + 1, character[Y]) == -1)
 			character[X]++;
-		if (map[character[Y]][character[X]] == PUSH_BLOCK)
+		if (map[character[Y]][character[X]-1] == PUSH_BLOCK)
 			push_block[X]++;
 		break;
 	case UP:
 		if (map[character[Y] - 1][character[X]] != WALL && Find_BExit(character[X], character[Y] - 1) == -1)
 			character[Y]--;
-		if (map[character[Y]][character[X]] == PUSH_BLOCK)
+		if (map[character[Y]+1][character[X]] == PUSH_BLOCK)
 			push_block[Y]--;
 		break;
 	case DOWN:
 		if (map[character[Y] + 1][character[X]] != WALL && Find_BExit(character[X], character[Y] + 1) == -1)
 			character[Y]++;
-		if (map[character[Y]][character[X]] == PUSH_BLOCK)
+		if (map[character[Y]-1][character[X]] == PUSH_BLOCK)
 			push_block[Y]++;
 		break;
 	}

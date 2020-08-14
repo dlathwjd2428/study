@@ -20,3 +20,7 @@
 #define PLUM SetConsoleTextAttribute( col,0x000d );
 #define YELLOW SetConsoleTextAttribute( col,0x000e );
 //////////////////////////////////////////////////////
+
+#define WIDTH 10
+#define HEIGHT 10
+#define STAGE 10
