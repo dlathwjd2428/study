@@ -5,35 +5,34 @@
 
 void main()
 {
-	int RNum;
 	int Lotto[LOTTO_NUM] = { 0 };
-	srand((unsigned)time(NULL));
 
+		//system("cls");
 	while (1)
 	{
 		system("cls");
-		for (int i = 0; i < LOTTO_NUM; i++)
-		{
-			RNum = (rand() % 45) + 1;
-			Lotto[i] = RNum;
+			srand(time(NULL));  
+			for (int i = 0; i <= LOTTO_NUM; i++)
+			{                                     
+				Lotto[i] = ((rand() % 45) + 1); 
 
-			if (i != 0)
-			{
-				for (int j = 0; j < LOTTO_NUM - 1; j++)
+				for (int j = 0; j < i; j++)
 				{
 					if (Lotto[i] == Lotto[j])
 					{
 						i--;
-						break;
 					}
 				}
 			}
-			
-		}
-		
+
 		for (int i = 0; i < LOTTO_NUM; i++)
-			printf("%d.%d\n",i+1, Lotto[i]);
+			printf("%d.%d\n", i + 1, Lotto[i]);
 		//printf("\b ");
 		system("pause");
 	}
+		
+
+		
 }
+		
+		

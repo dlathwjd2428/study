@@ -1,3 +1,5 @@
 ﻿  lotto.cpp
-c:\users\ta-18\desktop\study\c_c++\문제 풀이\chapter6\chapter6_lotto\lotto\lotto.cpp(7): warning C4326: 'main'의 반환 형식이 'int'이어야 하는데 'void'입니다.
-  lotto.vcxproj -> C:\Users\TA-18\Desktop\study\C_C++\문제 풀이\Chapter6\Chapter6_Lotto\Debug\lotto.exe
+c:\users\user\desktop\ggg\study\c_c++\문제 풀이\chapter6\chapter6_lotto\lotto\lotto.cpp(7): warning C4326: 'main'의 반환 형식이 'int'이어야 하는데 'void'입니다.
+c:\users\user\desktop\ggg\study\c_c++\문제 풀이\chapter6\chapter6_lotto\lotto\lotto.cpp(15): warning C4244: '인수': 'time_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\users\user\desktop\ggg\study\c_c++\문제 풀이\chapter6\chapter6_lotto\lotto\lotto.cpp(8): warning C4101: 'RNum' :참조되지 않은 지역 변수입니다.
+  lotto.vcxproj -> C:\Users\USER\Desktop\GGG\study\C_C++\문제 풀이\Chapter6\Chapter6_Lotto\Debug\lotto.exe
