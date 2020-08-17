@@ -30,6 +30,7 @@ void main()
 
 			while (loop)
 			{
+				StarCreate(map);
 				Star_Update(map);
 				MapDraw(map);
 				PlayerMove(map);
@@ -65,13 +66,9 @@ void wall(int map[][WIDTH])
 {
 	for (int y = 0; y < HEIGHT; y++)
 	{
-		for (int x = 0; x < WIDTH; x++)
-		{
-			map[y][0] = WALL;
-			map[y][WIDTH - 1] = WALL;
-		}
+		map[y][0] = WALL;
+		map[y][WIDTH - 1] = WALL;
 	}
-	StarCreate(map);
 }
 
 void MapDraw(int map[][WIDTH])
@@ -143,12 +140,8 @@ void StarCreate(int map[HEIGHT][WIDTH])
 {
 	int x = 0;
 
-	for (int i = 0; i < 1; i++)
-	{
-		x = rand() % 8 + 1;
-
-		map[0][x] = STAR;
-	}
+	x = rand() % 8 + 1;
+	map[0][x] = STAR;
 }
 
 void Star_Update(int map[HEIGHT][WIDTH])
