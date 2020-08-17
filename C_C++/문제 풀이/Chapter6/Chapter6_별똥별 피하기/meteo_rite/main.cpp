@@ -5,7 +5,7 @@ void MapDraw(int map[][WIDTH]);
 void player_reset(int map[][WIDTH]);
 void PlayerMove(int map[][WIDTH]);
 int cheak_hit(int map[][WIDTH]);
-void clear_map(int map[][WIDTH]);
+void wall(int map[][WIDTH]);
 void StarCreate(int map[HEIGHT][WIDTH]);
 void Star_Update(int map[HEIGHT][WIDTH]);
 
@@ -24,7 +24,7 @@ void main()
 		switch (menu())
 		{
 		case 1:
-			clear_map(map);
+			wall(map);
 			player_reset(map);
 			srand((unsigned)time(NULL));
 
@@ -33,7 +33,7 @@ void main()
 				Star_Update(map);
 				MapDraw(map);
 				PlayerMove(map);
-				Sleep(33);
+				Sleep(30);
 			}
 			break;
 
@@ -61,19 +61,15 @@ void player_reset(int map[][WIDTH])
 	player[Y] = HEIGHT - 1;
 }
 
-void clear_map(int map[][WIDTH])
+void wall(int map[][WIDTH])
 {
-	int y, x;
-
-	for (y = 0; y < HEIGHT; y++)
+	for (int y = 0; y < HEIGHT; y++)
 	{
-		for (x = 0; x < WIDTH; x++)
+		for (int x = 0; x < WIDTH; x++)
 		{
 			map[y][0] = WALL;
 			map[y][WIDTH - 1] = WALL;
-
 		}
-
 	}
 	StarCreate(map);
 }
@@ -123,11 +119,6 @@ void PlayerMove(int map[][WIDTH])
 	{
 		loop = 0;
 	}
-	else
-	{
-		score++;
-	}
-
 }
 
 int cheak_hit(int map[][WIDTH])
@@ -150,20 +141,13 @@ int cheak_hit(int map[][WIDTH])
 
 void StarCreate(int map[HEIGHT][WIDTH])
 {
-	int create = 0, x = 0;
+	int x = 0;
 
-	for (int create = 0; create < 5; create++)
+	for (int i = 0; i < 1; i++)
 	{
 		x = rand() % 8 + 1;
 
-		if (map[0][x] == STAR)
-		{
-			create--;
-		}
-		else
-		{
-			map[0][x] = STAR;
-		}
+		map[0][x] = STAR;
 	}
 }
 
@@ -176,12 +160,24 @@ void Star_Update(int map[HEIGHT][WIDTH])
 			if (map[y][x] == STAR)
 			{
 				map[y][x] = 0;
-			}
-			else
-			{
-					map[y + 1][x] = STAR;
-			}
 
+				if (y + 1 >= HEIGHT)
+				{
+					for (int i = 1; i < 9; i++)
+					{
+						map[HEIGHT - 1][i] = 0;
+					}
+					score++;
+					StarCreate(map);
+
+					return;
+
+				}
+				else
+				{
+					map[y + 1][x] = STAR;
+				}
+			}
 		}
 	}
 }
