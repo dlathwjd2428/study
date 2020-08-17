@@ -127,6 +127,7 @@
     <ClCompile Include="maze.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="define_main.h" />
     <ClInclude Include="head.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

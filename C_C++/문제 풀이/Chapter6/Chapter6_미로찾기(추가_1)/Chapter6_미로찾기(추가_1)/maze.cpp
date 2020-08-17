@@ -1,48 +1,18 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include"head.h"
+#include"define_main.h"
 
-#define WALL 1
-#define NULL 0
-#define Y 0
-#define X 1
-#define FLAG 2
-#define CHARACTER 2 //캐릭터
-#define TRUE 1
-#define FALSE 0
-
-#define END 3//게임 끝 
-#define E_MAX 1
-#define PUSH_BLOCK 5
-#define POTAL_MAX 8//포탈 갯수
-#define ENTRY_START 10
-#define EXIT_START 20
-
-#define Q_MAX 3 //질문 갯수
-#define QENTRY_START 30
-#define QEXIT_START 40
-
-#define B_MAX 4//버튼 갯수
-#define BENTRY_START 50
-#define BEXIT_START 60
-
-#define LEFT 75
-#define RIGHT 77
-#define UP 72
-#define DOWN 80
-
-extern char map[HEIGHT][WIDTH][STAGE];
+extern int map[HEIGHT][WIDTH][STAGE];
+int board[HEIGHT][WIDTH] = {0};
 
 int character[2];
 int push_block[2];
 int Entry_Potal[POTAL_MAX][2];
 int Exit_Potal[POTAL_MAX][2];
-
 int QEntry_Potal[Q_MAX][2];
 int QExit_Potal[Q_MAX][2];
-
 int BEntry_Potal[B_MAX][3];
 int BExit_Potal[B_MAX][3];
-
 int End_Potal[E_MAX][2];
 
 int ans = 0;
@@ -123,71 +93,65 @@ void Init()
 	sprintf(buf, "mode con: lines=%d cols=%d", Height, Width);
 	system(buf);
 
-	//for (r = 9; r <= 9; r++)
-	//{
-	//	x = 0, y = 9;
-	//	for (a = 0; a <= 9; a++)
-	//	{
-	//		for (b = 0; b <= 9; b++)
-	//			board[a][b] = map[r][a][b];
-	//	}
-	//}
-
-	for (r = 9; r <= 9; r++)
+	for (int r = 9; r <= 9; r++)
 	{
-
+		for (int a = 0; a <= 9; a++)
+		{
+			for (int b = 0; b <= 9; b++)
+				board[a][b] = map[r][a][b];
+		}
 	}
 
 	for (int y = 0; y < HEIGHT; y++)
 	{
 		for (int x = 0; x < WIDTH; x++)
 		{
-			if (map[y][x] == CHARACTER)
+			if (board[y][x] == CHARACTER)
 			{
 				character[X] = x;
 				character[Y] = y;
 			}
-			else if (map[y][x] == END)
+			else if (board[y][x] == END)
 			{
-				End_Potal[map[y][x] - END][X] = x;
-				End_Potal[map[y][x] - END][Y] = y;
+				End_Potal[board[y][x] - END][X] = x;
+				End_Potal[board[y][x] - END][Y] = y;
 			}
-			else if (map[y][x] == PUSH_BLOCK)
+			else if (board[y][x] == PUSH_BLOCK)
 			{
-				push_block[map[y][x] - PUSH_BLOCK] = x;
-				push_block[map[y][x] - PUSH_BLOCK] = y;
+				push_block[board[y][x] - PUSH_BLOCK] = x;
+				push_block[board[y][x] - PUSH_BLOCK] = y;
 			}
-			else if (map[y][x] >= ENTRY_START && map[y][x] < ENTRY_START + POTAL_MAX)
+			else if (board[y][x] >= ENTRY_START && board[y][x] < ENTRY_START + POTAL_MAX)
 			{
-				Entry_Potal[map[y][x] - ENTRY_START][X] = x;
-				Entry_Potal[map[y][x] - ENTRY_START][Y] = y;
+				Entry_Potal[board[y][x] - ENTRY_START][X] = x;
+				Entry_Potal[board[y][x] - ENTRY_START][Y] = y;
 			}
-			else if (map[y][x] >= EXIT_START && map[y][x] < EXIT_START + POTAL_MAX)
+			else if (board[y][x] >= EXIT_START && board[y][x] < EXIT_START + POTAL_MAX)
 			{
-				Exit_Potal[map[y][x] - EXIT_START][X] = x;
-				Exit_Potal[map[y][x] - EXIT_START][Y] = y;
+				Exit_Potal[board[y][x] - EXIT_START][X] = x;
+				Exit_Potal[board[y][x] - EXIT_START][Y] = y;
 			}
-			else if (map[y][x] >= QENTRY_START && map[y][x] < QENTRY_START + Q_MAX)
+			else if (board[y][x] >= QENTRY_START && board[y][x] < QENTRY_START + Q_MAX)
 			{
-				QEntry_Potal[map[y][x] - QENTRY_START][X] = x;
-				QEntry_Potal[map[y][x] - QENTRY_START][Y] = y;
+				QEntry_Potal[board[y][x] - QENTRY_START][X] = x;
+				QEntry_Potal[board[y][x] - QENTRY_START][Y] = y;
 			}
-			else if (map[y][x] >= QEXIT_START && map[y][x] < QEXIT_START + Q_MAX)
+			else if (board[y][x] >= QEXIT_START && board[y][x] < QEXIT_START + Q_MAX)
 			{
-				QExit_Potal[map[y][x] - QEXIT_START][X] = x;
-				QExit_Potal[map[y][x] - QEXIT_START][Y] = y;
+				QExit_Potal[board[y][x] - QEXIT_START][X] = x;
+				QExit_Potal[board[y][x] - QEXIT_START][Y] = y;
 			}
-			else if (map[y][x] >= BENTRY_START && map[y][x] < BENTRY_START + B_MAX)
+			else if (board[y][x] >= BENTRY_START && board[y][x] < BENTRY_START + B_MAX)
 			{
-				BEntry_Potal[map[y][x] - BENTRY_START][X] = x;
-				BEntry_Potal[map[y][x] - BENTRY_START][Y] = y;
-				BEntry_Potal[map[y][x] - BENTRY_START][FLAG] = TRUE;
+				BEntry_Potal[board[y][x] - BENTRY_START][X] = x;
+				BEntry_Potal[board[y][x] - BENTRY_START][Y] = y;
+				BEntry_Potal[board[y][x] - BENTRY_START][FLAG] = TRUE;
 			}
-			else if (map[y][x] >= BEXIT_START && map[y][x] < BEXIT_START + B_MAX)
+			else if (board[y][x] >= BEXIT_START && board[y][x] < BEXIT_START + B_MAX)
 			{
-				BExit_Potal[map[y][x] - BEXIT_START][X] = x;
-				BExit_Potal[map[y][x] - BEXIT_START][Y] = y;
-				BExit_Potal[map[y][x] - BEXIT_START][FLAG] = TRUE;
+				BExit_Potal[board[y][x] - BEXIT_START][X] = x;
+				BExit_Potal[board[y][x] - BEXIT_START][Y] = y;
+				BExit_Potal[board[y][x] - BEXIT_START][FLAG] = TRUE;
 			}
 		}
 	}
@@ -199,21 +163,21 @@ void MapDraw()
 	{
 		for (int x = 0; x < WIDTH; x++)
 		{
-			if (map[y][x] == WALL)
+			if (board[y][x] == WALL)
 				printf("▩");
-			else if (map[y][x] == END)
+			else if (board[y][x] == END)
 			{
 				GOLD
 					printf("♬");
 				ORIGINAL
 			}
-			else if (map[y][x] == CHARACTER)
+			else if (board[y][x] == CHARACTER)
 			{
 				RED
 					printf("★");
 				ORIGINAL
 			}
-			else if (map[y][x] == PUSH_BLOCK)
+			else if (board[y][x] == PUSH_BLOCK)
 			{
 					printf("□");
 			}
@@ -353,36 +317,45 @@ void Move()
 	char ch;
 	ch = _getch();
 	system("cls");
-	map[character[Y]][character[X]] = NULL;
+	board[character[Y]][character[X]] = NULL;
 	switch (ch)
 	{
 	case LEFT:
-		if (map[character[Y]][character[X] - 1] != WALL && Find_BExit(character[X] - 1, character[Y]) == -1)
+		if (board[character[Y]][character[X] - 1] != WALL && Find_BExit(character[X] - 1, character[Y]) == -1)
 			character[X]--;
-		if (map[character[Y]][character[X]+1] == PUSH_BLOCK)
+		if (board[character[Y]][character[X]+1] == PUSH_BLOCK)
 			push_block[X]--;
 		break;
 	case RIGHT:
-		if (map[character[Y]][character[X] + 1] != WALL && Find_BExit(character[X] + 1, character[Y]) == -1)
+		if (board[character[Y]][character[X] + 1] != WALL && Find_BExit(character[X] + 1, character[Y]) == -1)
 			character[X]++;
-		if (map[character[Y]][character[X]-1] == PUSH_BLOCK)
+		if (board[character[Y]][character[X]-1] == PUSH_BLOCK)
 			push_block[X]++;
 		break;
 	case UP:
-		if (map[character[Y] - 1][character[X]] != WALL && Find_BExit(character[X], character[Y] - 1) == -1)
+		if (board[character[Y] - 1][character[X]] != WALL && Find_BExit(character[X], character[Y] - 1) == -1)
 			character[Y]--;
-		if (map[character[Y]+1][character[X]] == PUSH_BLOCK)
+		if (board[character[Y]+1][character[X]] == PUSH_BLOCK)
 			push_block[Y]--;
 		break;
 	case DOWN:
-		if (map[character[Y] + 1][character[X]] != WALL && Find_BExit(character[X], character[Y] + 1) == -1)
+		if (board[character[Y] + 1][character[X]] != WALL && Find_BExit(character[X], character[Y] + 1) == -1)
 			character[Y]++;
-		if (map[character[Y]-1][character[X]] == PUSH_BLOCK)
+		if (board[character[Y]-1][character[X]] == PUSH_BLOCK)
 			push_block[Y]++;
 		break;
+	//case 'r': //게임 재시작 하는 문
+	//	{
+	//		for (int a = 0; a <= 9; a++)
+	//		{
+	//			for (int b = 0; b <= 9; b++)
+	//				board[a][b] = map[r][a][b];
+	//		}
+	//		break;
+	//	}
 	}
 	MoveCheck();
-	map[character[Y]][character[X]] = CHARACTER;
+	board[character[Y]][character[X]] = CHARACTER;
 
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

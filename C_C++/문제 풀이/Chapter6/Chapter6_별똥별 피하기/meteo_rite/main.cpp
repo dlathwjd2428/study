@@ -34,7 +34,7 @@ void main()
 				Star_Update(map);
 				MapDraw(map);
 				PlayerMove(map);
-				Sleep(30);
+				Sleep(100);
 			}
 			break;
 

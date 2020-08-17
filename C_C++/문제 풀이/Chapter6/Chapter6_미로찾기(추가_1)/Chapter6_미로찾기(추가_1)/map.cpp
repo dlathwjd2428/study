@@ -26,7 +26,7 @@
 
 //빈 공간=0, 상자=1, 벽=2 
 
-char map[HEIGHT][WIDTH][STAGE] =
+int map[HEIGHT][WIDTH][STAGE] =
 {
 	{
 		{ 0,0,1,0,1,0,1,2,2,0 }, //map1 ㅇ
