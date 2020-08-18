@@ -4,17 +4,18 @@
 void Q1(char *Q1_1);
 void Q2(int *Q2_1, int *Q2_2);
 void Q3(int *Q3_1);
+void Q4(int *Q4_1);
 
 void main()
 {
-	char Q1_1[20] = {};
+	char Q1_1[20] = {0};
 	int Q2_1 = 0, Q2_2 = 0;
 	int Q3_1 = 0;
-	int Q4_1[8] = {};
+	int Q4_1[8] = {0};
 
 	//------------------Q1-----------------
 	printf("1. 문자열을 입력하세요 : ");
-	scanf("%s", Q1_1);
+	scanf("%s", &Q1_1);
 	printf("함수 호출 전 = %s", Q1_1);
 	Q1(Q1_1);
 
@@ -43,9 +44,16 @@ void main()
 	}
 
 	printf("정렬 전 : ");
-	for (int i = 0; *(Q4_1 + i) != 0; i++)
+	for (int i = 0; i < 8; i++)
 	{
-		printf("%d", (*Q4_1 + i));
+		printf("%d ", *(Q4_1 + i));
+	}
+
+	Q4(Q4_1);
+	printf("정렬 후 : ");
+	for (int i = 0; i < 8; i++)
+	{
+		printf("%d ", *(Q4_1 + i));
 	}
 
 }
@@ -82,7 +90,7 @@ void Q3(int *Q3_1)
 	*Q3_1 = add;
 }
 
-void Q4(int Q4_1[])
+void Q4(int *Q4_1)
 {
 	int temp = 0;
 
