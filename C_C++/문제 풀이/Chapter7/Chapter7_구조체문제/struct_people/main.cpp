@@ -20,9 +20,11 @@ void main()
 	{
 		system("cls");
 		SetPeople(&Max_People[i], i+1);	
-		sort(&Max_People[i]);
+		
 	}
 	system("cls");
+
+	sort(Max_People);
 	
 	for (int i = 0; i < 5; i++)
 	{
@@ -54,15 +56,30 @@ void ShowPeople(People P, int i)
 
 void sort(People *P)
 {
-	int* temp;
+	People temp;
 	for (int i = 0; i < 5; i++)
 	{
-		for (int j = 0 ;j < 5; j++)
+		for (int k = 0 ; k < i; k++)
 		{
-			temp = &P[i];
-			&P[i] = &P[j];
-			[i].age == P[j].age
-			if (P[i].age == P[j].age);
+			if (i != k)
+			{
+				if (P[i].age > P[k].age)
+				{
+					temp = P[i];
+					P[i] = P[k];
+					P[k] = temp;
+
+				}
+				else if (P[i].age == P[k].age)
+				{
+					if (P[i].height > P[k].height)
+					{
+						temp = P[i];
+						P[i] = P[k];
+						P[k] = temp;
+					}
+				}
+			}			
 		}
 		
 	}
