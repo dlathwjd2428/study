@@ -9,8 +9,9 @@ typedef struct people
 	float height = 0;
 }People;
 
-void ShowPeople(People P);
-void SetPeople(People* P);
+void ShowPeople(People P, int i);
+void SetPeople(People* P, int i);
+void sort(People *P);
 
 void main()
 {
@@ -18,19 +19,20 @@ void main()
 	for (int i = 0; i < 5; i++)
 	{
 		system("cls");
-		SetPeople(&Max_People[i]);	
-		
+		SetPeople(&Max_People[i], i+1);	
+		sort(&Max_People[i]);
 	}
 	system("cls");
+	
 	for (int i = 0; i < 5; i++)
 	{
-		ShowPeople(Max_People[i]);
+		ShowPeople(Max_People[i], i+1);
 	}
 }
 
-void SetPeople(People* P)
+void SetPeople(People* P, int i)
 {
-	printf("======%d======\n");
+	printf("======%d=======\n",i);
 	printf("이름입력 : ");
 	scanf("%s", P->name);
 	printf("나이입력 : ");
@@ -41,12 +43,29 @@ void SetPeople(People* P)
 }
 
 
-void ShowPeople(People P)
+void ShowPeople(People P, int i)
 {
-	printf("======%d======\n");
+	printf("======%d=======\n",i);
 	printf("1.이름 : %s\n", P.name);
 	printf("2.나이 : %d\n", P.age);
 	printf("3.키 : %.2f\n", P.height);
 	printf("==============\n");
+}
+
+void sort(People *P)
+{
+	int* temp;
+	for (int i = 0; i < 5; i++)
+	{
+		for (int j = 0 ;j < 5; j++)
+		{
+			temp = &P[i];
+			&P[i] = &P[j];
+			[i].age == P[j].age
+			if (P[i].age == P[j].age);
+		}
+		
+	}
+	
 }
 
