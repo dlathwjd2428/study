@@ -197,7 +197,15 @@ void FineStudent(Student* Student_List[])
 	for (int i = 0; i < StudentCount; i++)
 	{
 		if (strcmp(fine_name, Student_List[i]->Name) == 0)
+		{
 			ShowStudent(Student_List[i]);
+		}			
+		else
+		{
+			printf("해당 학생이 없습니다.");
+			system("pause");
+		}
+			
 	}
 }
 
