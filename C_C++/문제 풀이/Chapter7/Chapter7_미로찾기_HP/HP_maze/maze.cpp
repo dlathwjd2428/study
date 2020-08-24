@@ -160,11 +160,12 @@ int Find_End(int x, int y)
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Init()
 {
+	system("cls");
 	int Width = (WIDTH * 2) + 1;
 	int Height = HEIGHT + 1;
 	char buf[256];
-	sprintf(buf, "mode con: lines=%d cols=%d", Height, Width);
-	system(buf);
+	//sprintf(buf, "mode con: lines=%d cols=%d", Height, Width);
+	//system(buf);
 
 	for (int y = 0; y < HEIGHT; y++)
 	{
@@ -448,7 +449,8 @@ void main()
 	printf("============================================\n");
 
 	printf("10초후 게임이 실행됩니다....\n");
-	Sleep(1000);
+	Sleep(100);
+	
 	Init();
 	while (gameplay)
 	{
