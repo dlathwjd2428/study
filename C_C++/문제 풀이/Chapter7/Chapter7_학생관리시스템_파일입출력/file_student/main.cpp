@@ -2,7 +2,6 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<Windows.h>
-#include<string.h>
 #define MAX 50
 
 typedef struct student
@@ -13,134 +12,120 @@ typedef struct student
 	int Number;
 	char Gender[10];
 }Student;
+
+int menu();
+void SetStudent(Student* St, int* Number);
+void ShowStudent(Student* St);
+void FineStudent(Student* Student_List[]);
+void ShowGrade(Student* Student_List[], int grade);
+
 int StudentCount = 0;
-void menu()
-{
-	printf("=====학생관리프로그램 (총 인원 : %d)=====\n", StudentCount);
-	printf("	1.학생 등록\n");
-	printf("	2.학생 목록(번호순)\n");
-	printf("	3.학생 목록(학년순)\n");
-	printf("	4.학년 검색\n");
-	printf("	5.학생 검색\n");
-	printf("	6.마지막 학생 삭제\n");
-	printf("	7.학생 전체 삭제\n");
-	printf("	8.학생 정보 저장\n");
-	printf("	9.학생 정보 불러오기\n"); //불러오기 할 때 중복되게할건지 리셋시키고 불러올건지
-	printf("	10.종료\n");
-	printf("========================================\n");
-	printf("[  입력  ] : ");
-}
-void SetStudent(Student* St, int* Number)
-{
-	St->Number = ++(*Number);
-	printf("======%d번 학생======\n", St->Number);
-	printf("이름 입력: ");
-	scanf("%s", St->Name);
-	printf("나이 입력: ");
-	scanf("%d", &St->Age);
-	printf("성별 입력: ");
-	scanf("%s", St->Gender);
-	printf("학년 입력(1~3) : ");
-	scanf("%d", &St->Class);
-
-}
-void ShowStudent(Student* St)
-{
-	printf("==========%s학생 (%d번)=========\n", St->Name, St->Number);
-	printf(" 나이 : %d, 성별 : %s, 학년 : %d\n", St->Age, St->Gender, St->Class);
-	printf("==============================\n");
-}
-
-void ShowClass(Student* Student_List[], int C)
-{
-	printf("┏──────────%d 학년──────────┓\n", C);
-	for (int i = 0; i < StudentCount; i++)
-		if (Student_List[i]->Class == C)
-			ShowStudent(Student_List[i]);
-	printf("┗──────────────────────────┛\n");
-}
 
 void main()
 {
-	int play = 1;
-	Student* Student_List[MAX]; // 주소를 50개 만든는거임
-	int Select;
-	char Sname[10];
-	FILE* f = fopen("STUDENTINDEX.txt", "w");
+	Student* Student_List[MAX];
+	int ch = 0;
 
-	while (play)
+	FILE* f = fopen("StudentFile.txt", "w");
+
+	while (1)
 	{
-		system("cls");
-		menu(); //메뉴출력
-		scanf("%d", &Select);
-
-		switch (Select)
+		switch (menu())
 		{
-		case 1: //학생 등록 
-			system("cls");
+		case 1: //학생 등록
 			if (StudentCount + 1 >= 50)
 			{
 				printf("학생정원(%d명)이 모두 찼습니다.\n");
 				system("pause");
 				break;
 			}
-			Student_List[StudentCount] = (Student*)malloc(sizeof(Student)); //메모리할당을 다따로함
+			Student_List[StudentCount] = (Student*)malloc(sizeof(Student));
 			SetStudent(Student_List[StudentCount], &StudentCount);
 			break;
 
-		case 2: //학생목록(번호순) 
+		case 2: //학생목록(번호순)
 			system("cls");
 			for (int i = 0; i < StudentCount; i++)
 				ShowStudent(Student_List[i]);
-			system("Pause");
+			system("pause");
 			break;
 
 		case 3: //학생목록(학년순)
 			system("cls");
-			ShowClass(Student_List, 1);
-			ShowClass(Student_List, 2);
-			ShowClass(Student_List, 3);
+			ShowGrade(Student_List, 1);
+			ShowGrade(Student_List, 2);
+			ShowGrade(Student_List, 3);
 			system("Pause");
 			break;
 
-		case 4: //학년 검색 ok
+		case 4: //학년 검색
 			system("cls");
 			printf("검색할 학년을 입력하세요: ");
-			scanf("%d", &Select);
-			printf("┏──────────%d 학년───────────┓\n", Select);
-			for (int i = 0; i < StudentCount; i++)
+			scanf("%d", &ch);
+
+			while (1)
 			{
-				if (Student_List[i]->Class == Select)
-					ShowStudent(Student_List[i]);
+				if (ch > 3 || ch < 1)
+				{
+					printf("1~3학년까지 존재합니다. 다시 입력해주세요\n");
+					system("Pause");
+					ch = 0;
+					system("cls");
+					printf("학년 입력 : ");
+					scanf("%d", &ch);
+				}
+				else
+				{
+					ShowGrade(Student_List, ch);
+					break;
+				}
 			}
-			printf("┗───────────────────────────┛\n");
+
+
 			system("Pause");
+
 			break;
 
-		case 5: //학생 검색 strcmp ok
-
+		case 5: //학생 검색
 			system("cls");
-			printf("검색할 학생을 입력하세요: ");
-			scanf("%s", &Sname);
-			for (int i = 0; i < StudentCount; i++)
-			{
-				if (strcmp(Sname, Student_List[i]->Name) == 0)
-					ShowStudent(Student_List[i]);
-			}
+			FineStudent(Student_List);
 			system("Pause");
 			break;
 
-		case 6: // 마지막 학생 삭제 ok
-			free(Student_List[StudentCount - 1]);
-			StudentCount--;
+		case 6: //마지막 학생 삭제
+			if (StudentCount <= 0)
+			{
+				printf("삭제할 데이터가 없습니다.");
+				system("pause");
+			}
+			else
+			{
+				printf("%s 학생의 정보가 삭제되었습니다.", Student_List[StudentCount - 1]->Name);
+				free(Student_List[StudentCount - 1]);
+				StudentCount--;
+				system("pause");
+			}
 			break;
 
-		case 7://학생 전체 삭제 ok
-			for (int i = 0; i < StudentCount; i++)
-				free(Student_List[i]);
-			StudentCount = 0;
+		case 7: //학생 전체 삭제
+			if (StudentCount <= 0)
+			{
+				printf("삭제할 데이터가 없습니다.\n");
+				system("pause");
+			}
+			else
+			{
+				for (int i = 0; i < StudentCount; i++)
+					free(Student_List[i]);
+
+				StudentCount = 0;
+
+				printf("생기부 초기화\n");
+				system("pause");
+			}
 			break;
-		case 8:
+
+		case 8: //학생정보 저장
 			system("cls");
 			fprintf(f, "등록된 학생수 : %d\n\n", StudentCount);
 			for (int i = 0; i < StudentCount; i++)
@@ -149,8 +134,8 @@ void main()
 			printf("저장이 완료되었습니다. \n");
 			system("Pause");
 			break;
-		case 9:
-			f = fopen("STUDENTINDEX.txt", "r");
+		case 9: //학생정보 불러오기
+			f = fopen("StudentFile.txt", "r");
 			if (f == NULL)
 				printf("가져올 데이터가 없습니다, \n");
 			else
@@ -177,10 +162,93 @@ void main()
 				printf("%s학생 동적할당 해제 완료\n", Student_List[i]->Name);
 				free(Student_List[i]);
 			}
-			StudentCount = 0;
-			play = 0;
 			return;
-
 		}
 	}
 }
+
+int menu()
+{
+	int ch = 0;
+
+	system("cls");
+	printf("=====학생관리프로그램=====(총 인원 : %d)\n", StudentCount);
+	printf("   1.학생 등록\n");
+	printf("   2.학생 목록<번호순>\n");
+	printf("   3.학생 목록<학년순>\n");
+	printf("   4.학년 검색\n");
+	printf("   5.학생 검색\n");
+	printf("   6.마지막 학생 삭제\n");
+	printf("   7.학생 전체 삭제\n");
+	printf("   8.종료\n");
+	printf("    입력 : ");
+	scanf("%d", &ch);
+
+	return ch;
+}
+
+void ShowStudent(Student* St)
+{
+	printf("======%s학생(%d번)======\n", St->Name, St->Number);
+	printf("나이 : %d,  성별 : %s,  학년 : %d\n", St->Age, St->Gender, St->Class);
+	printf("======================\n");
+}
+void SetStudent(Student* St, int* Number)
+{
+	system("cls");
+	St->Number = ++(*Number);
+	printf("======%d번 학생======\n", St->Number);
+	printf("이름 입력 : ");
+	scanf("%s", St->Name);
+	printf("나이 입력 : ");
+	scanf("%d", &St->Age);
+	printf("성별 입력 : ");
+	scanf("%s", St->Gender);
+	printf("학년 입력 : ");
+	scanf("%d", &St->Class);
+	while (1)
+	{
+		if (St->Class < 1 || St->Class > 3)
+		{
+			printf("1~3학년까지 존재합니다. 다시 입력해주세요\n");
+			St->Class = { 0 };
+			printf("학년 입력 : ");
+			scanf("%d", &St->Class);
+		}
+		else
+			break;
+	}
+
+
+}
+
+void FineStudent(Student* Student_List[])
+{
+	char fine_name[20] = { 0 };
+	printf("검색할 이름 입력 : ");
+	scanf("%s", fine_name);
+	for (int i = 0; i < StudentCount; i++)
+	{
+		if (strcmp(fine_name, Student_List[i]->Name) == 0)
+		{
+			ShowStudent(Student_List[i]);
+		}
+		else
+		{
+			printf("해당 학생이 없습니다.");
+			system("pause");
+		}
+
+	}
+}
+
+void ShowGrade(Student* Student_List[], int grade)
+{
+	printf("┏──────────%d 학년──────────┓\n", grade);
+	for (int i = 0; i < StudentCount; i++)
+		if (Student_List[i]->Class == grade)
+			ShowStudent(Student_List[i]);
+	printf("┗──────────────────────────┛\n");
+}
+
+
