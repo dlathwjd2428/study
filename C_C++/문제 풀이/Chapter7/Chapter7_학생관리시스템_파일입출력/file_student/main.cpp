@@ -18,6 +18,8 @@ void SetStudent(Student* St, int* Number);
 void ShowStudent(Student* St);
 void FineStudent(Student* Student_List[]);
 void ShowGrade(Student* Student_List[], int grade);
+void file_w(Student* Student_List[]);
+void file_r(Student* Student_List[]);
 
 int StudentCount = 0;
 
@@ -26,7 +28,6 @@ void main()
 	Student* Student_List[MAX];
 	int ch = 0;
 
-	FILE* f = fopen("StudentFile.txt", "w");
 
 	while (1)
 	{
@@ -127,33 +128,11 @@ void main()
 
 		case 8: //학생정보 저장
 			system("cls");
-			fprintf(f, "등록된 학생수 : %d\n\n", StudentCount);
-			for (int i = 0; i < StudentCount; i++)
-				fprintf(f, "%s %d %s %d\n", Student_List[i]->Name, Student_List[i]->Age, Student_List[i]->Gender, Student_List[i]->Class);
-			fclose(f);
-			printf("저장이 완료되었습니다. \n");
-			system("Pause");
+			file_w(Student_List);
 			break;
-		case 9: //학생정보 불러오기
-			f = fopen("StudentFile.txt", "r");
-			if (f == NULL)
-				printf("가져올 데이터가 없습니다, \n");
-			else
-			{
-				int i = StudentCount;
-				while (!feof(f))
-				{
-					fscanf(f, "%s", Student_List[i]->Name);
-					fscanf(f, "%d", &Student_List[i]->Age);
-					fscanf(f, "%s", Student_List[i]->Gender);
-					fscanf(f, "%d", &Student_List[i]->Class);
-					i++;
-				}
-				StudentCount += i;
-				fclose(f);
-				printf("불러오기가 완료되었습니다. \n");
-				system("Pause");
-			}
+
+		case 9: //학생정보 불러오기			
+			file_r(Student_List);
 			break;
 
 		case 10: //종료
@@ -180,11 +159,54 @@ int menu()
 	printf("   5.학생 검색\n");
 	printf("   6.마지막 학생 삭제\n");
 	printf("   7.학생 전체 삭제\n");
-	printf("   8.종료\n");
+	printf("   8.학생정보 저장\n");
+	printf("   9.학생정보 불러오기\n");
+	printf("   10.종료\n");
 	printf("    입력 : ");
 	scanf("%d", &ch);
 
 	return ch;
+}
+
+void file_w(Student* Student_List[])
+{
+
+	FILE* fw = fopen("StudentFile.txt", "w");
+
+	fprintf(fw, "%d\n", StudentCount);
+	for (int i = 0; i < StudentCount; i++)
+		fprintf(fw, "%s %d %s %d\n", Student_List[i]->Name, Student_List[i]->Age, Student_List[i]->Gender, Student_List[i]->Class);
+	fclose(fw);
+
+	printf("저장이 완료되었습니다. \n");
+	system("Pause");
+}
+
+void file_r(Student* Student_List[])
+{
+	FILE* fr = fopen("StudentFile.txt", "r");
+
+	if (fr == NULL)
+		printf("가져올 데이터가 없습니다, \n");
+	else
+	{
+		fscanf(fr, "%d", &StudentCount);
+		int i = StudentCount;
+		while (!feof(fr))
+		{
+			Student_List[StudentCount] = (Student*)malloc(sizeof(Student));
+
+			fscanf(fr, "%s", Student_List[i]->Name);
+			fscanf(fr, "%d", &Student_List[i]->Age);
+			fscanf(fr, "%s", Student_List[i]->Gender);
+			fscanf(fr, "%d", &Student_List[i]->Class);
+			i++;
+		}
+		StudentCount += i;
+		fclose(fr);
+		printf("불러오기가 완료되었습니다. \n");
+		system("Pause");
+	}
 }
 
 void ShowStudent(Student* St)
