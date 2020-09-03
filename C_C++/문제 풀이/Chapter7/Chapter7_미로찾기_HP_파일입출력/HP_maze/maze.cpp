@@ -17,9 +17,10 @@ int BExit_Potal[B_MAX][3];
 int End_Potal[E_MAX][2];
 
 int menu();
-int Init();
-void file_w();
-void file_r();
+void Init();
+int reset_map();
+int save_rmap();
+void save_wmap();
 void Move();
 void MoveCheck();
 void MapDraw();
@@ -35,36 +36,17 @@ int answer = 0;
 int gameplay = 1;
 int player_HP = 100; 
 
-void main()
+int main()
 {
-	FILE * cf = fopen("clear_maze.txt", "r");
-	int key = 0;
-
 	switch (menu())
 	{
 	case 1:
-		if (cf == NULL)
-			printf("가져올 데이터가 없습니다, \n");
-		else
-		{
-			// 동적할당된 곳에 미로 데이터 집어 넣기 (파일 입출력)     
-			for (int i = 0; i < WIDTH; i++)
-			{
-				for (int j = 0; j < HEIGHT; j++)
-				{
-					fscanf(cf, "%d ", &map[i][j]);
-				}
-			}
-			fclose(cf);
-
-			printf("불러오기가 완료되었습니다. \n");
-			system("Pause");
-		}
+		reset_map();
+		Init();
 		break;
 
 	case 2:
-		file_r();
-
+		save_rmap();
 		break;
 	}
 
@@ -115,22 +97,10 @@ int menu()
 
 	return ch;
 }
-int Init()
+void Init()
 {
 	system("cls");
-
-	map = (int **)malloc(sizeof(int *) * WIDTH);
-
-	for (int i = 0; i < WIDTH; i++)
-	{
-		map[i] = (int *)malloc(sizeof(int *) * HEIGHT);
-		if (map[i] == NULL)
-		{
-			printf("%d번째 maze 동적할당실패!\n");
-			return -1;
-		}
-	}
-
+	
 	for (int y = 0; y < HEIGHT; y++)
 	{
 		for (int x = 0; x < WIDTH; x++)
@@ -180,40 +150,85 @@ int Init()
 		}
 	}
 }
-
-
-////////////////////////////////////////////////////////////    파일입출력    ////////////////////////////////////////////////////////////
-void file_w()
+////////////////////////////////////////////////////////////  FILE 함수 모음  ////////////////////////////////////////////////////////////
+int reset_map()
 {
-	FILE* fw = fopen("maze.txt", "w");
+	FILE* maze_file = fopen("clear_maze.txt", "r");
 
-	fclose(fw);
-
-	printf("저장이 완료되었습니다. \n");
-	system("Pause");
-}
-
-void file_r()
-{
-	FILE* fr = fopen("maze.txt", "r");
-
-	if (fr == NULL)
+	if (maze_file == NULL)
 		printf("가져올 데이터가 없습니다, \n");
 	else
 	{
-		// 동적할당된 곳에 미로 데이터 집어 넣기 (파일 입출력)     
+		map = (int **)malloc(sizeof(int *) * WIDTH);
+
+		for (int i = 0; i < WIDTH; i++)
+		{
+			map[i] = (int *)malloc(sizeof(int *) * HEIGHT);
+			if (map[i] == NULL)
+			{
+				printf("%d번째 maze 동적할당실패!\n");
+				return -1;
+			}
+		}
+ 
+		fscanf(maze_file, "%d", &player_HP);
 		for (int i = 0; i < WIDTH; i++)
 		{
 			for (int j = 0; j < HEIGHT; j++)
 			{
-				fscanf(fr, "%d ", &map[i][j]);
+				fscanf(maze_file, "%d ", &map[i][j]);
 			}
 		}
-		fclose(fr);
-
-		printf("불러오기가 완료되었습니다. \n");
-		system("Pause");
 	}
+
+	fclose(maze_file);
+}
+int save_rmap()
+{
+	FILE* file_save = fopen("maze.txt", "r");
+
+	if (file_save == NULL)
+		printf("가져올 데이터가 없습니다, \n");
+	else
+	{
+		map = (int **)malloc(sizeof(int *) * WIDTH);
+
+		for (int i = 0; i < WIDTH; i++)
+		{
+			map[i] = (int *)malloc(sizeof(int *) * HEIGHT);
+			if (map[i] == NULL)
+			{
+				printf("%d번째 maze 동적할당실패!\n");
+				return -1;
+			}
+		}
+
+		fscanf(file_save, "%d", &player_HP);
+
+		for (int i = 0; i < WIDTH; i++)
+		{
+			for (int j = 0; j < HEIGHT; j++)
+			{
+				fscanf(file_save, "%d ", &map[i][j]);
+			}
+		}
+	}
+	fclose(file_save);
+}
+void save_wmap()
+{
+	FILE* file_save = fopen("maze.txt", "w");
+
+	fprintf(file_save, "%d ", player_HP);
+	for (int i = 0; i < WIDTH; i++)
+	{
+		for (int j = 0; j < HEIGHT; j++)
+		{
+			fprintf(file_save, "%d ", map[i][j]);
+		}
+		fprintf(file_save, "\n");
+	}
+	fclose(file_save);
 }
 ////////////////////////////////////////////////////////////  MOVE 함수 모음  ////////////////////////////////////////////////////////////
 
@@ -225,6 +240,19 @@ void Move()
 	map[character[Y]][character[X]] = NULL;
 	switch (ch)
 	{
+	case ESC :
+		printf("게임이 종료되었습니다");
+		exit(0);
+		free(map);
+		break;
+
+	case 's': //save
+		save_wmap();
+		system("cls");
+		printf("저장되었습니다.\n");
+		system("pause");
+
+		break;
 	case LEFT:
 		if (map[character[Y]][character[X] - 1] != WALL && Find_BExit(character[X] - 1, character[Y]) == -1)
 		{
@@ -256,8 +284,6 @@ void Move()
 	}
 	MoveCheck();
 	map[character[Y]][character[X]] = CHARACTER;
-
-
 }
 void MoveCheck()
 {
@@ -284,7 +310,6 @@ void MoveCheck()
 	int Qindex = Find_QEntry(character[X], character[Y]); // 포탈이동용 인덱스
 	if (Qindex != -1)
 	{
-
 		switch (Qindex)
 		{
 		case 0:
@@ -347,6 +372,7 @@ void MoveCheck()
 }
 void MapDraw()
 {
+	system("cls");
 	for (int y = 0; y < HEIGHT; y++)
 	{
 		for (int x = 0; x < WIDTH; x++)
@@ -409,7 +435,8 @@ void MapDraw()
 		printf("\n");
 	}
 	printf("HP : %d", player_HP);
-
+	printf("\n\n저장 : S, 종료 : ESC");
+	printf("\n저장하지 않고 종료 할 경우 리셋됩니다.");
 }
 
 ////////////////////////////////////////////////////////////  FIND 함수 모음  ////////////////////////////////////////////////////////////
