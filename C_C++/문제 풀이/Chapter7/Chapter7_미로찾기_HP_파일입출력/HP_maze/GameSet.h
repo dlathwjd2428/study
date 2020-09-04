@@ -6,6 +6,7 @@
 #define X 1
 #define FLAG 2
 #define CHARACTER 2 //Ä³¸¯ÅÍ
+#define HP 5
 #define TRUE 1
 #define FALSE 0
 

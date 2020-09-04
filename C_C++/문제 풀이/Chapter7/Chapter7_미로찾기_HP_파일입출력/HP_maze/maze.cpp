@@ -277,12 +277,20 @@ void Move()
 			character[X]--;
 			player_HP--;
 		}
+		if (map[character[Y]][character[X] - 1] == HP)
+		{
+			player_HP++;
+		}
 		break;
 	case RIGHT:
 		if (map[character[Y]][character[X] + 1] != WALL && Find_BExit(character[X] + 1, character[Y]) == -1)
 		{
 			character[X]++;
 			player_HP--;
+		}
+		if (map[character[Y]][character[X] + 1] == HP)
+		{
+			player_HP++;
 		}
 		break;
 	case UP:
@@ -291,12 +299,20 @@ void Move()
 			character[Y]--;
 			player_HP--;
 		}
+		if (map[character[Y] - 1][character[X]] == HP)
+		{
+			player_HP++;
+		}
 		break;
 	case DOWN:
 		if (map[character[Y] + 1][character[X]] != WALL && Find_BExit(character[X], character[Y] + 1) == -1)
 		{
 			character[Y]++;
 			player_HP--;
+		}
+		if (map[character[Y] + 1][character[X]] == HP)
+		{
+			player_HP++;
 		}
 		break;
 	}
@@ -409,6 +425,12 @@ void MapDraw()
 			{
 				RED
 					printf("¡Ú");
+				ORIGINAL
+			}
+			else if (map[y][x] == HP)
+			{
+				SKY_BLUE
+					printf("¢Ü");
 				ORIGINAL
 			}
 			else if (Find_Entry(x, y) != -1)
