@@ -20,7 +20,7 @@ int menu();
 void Init();
 int reset_map();
 int save_rmap();
-void save_wmap();
+void save_wmap(int a, int b);
 void Move();
 void MoveCheck();
 void MapDraw();
@@ -35,6 +35,8 @@ int Find_End(int x, int y);
 int answer = 0;
 int gameplay = 1;
 int player_HP = 100; 
+int PlayerPoint = 0;
+int a = 0, b = 0;
 
 int main()
 {
@@ -212,19 +214,30 @@ int save_rmap()
 				fscanf(file_save, "%d ", &map[i][j]);
 			}
 		}
+
+
 	}
 	fclose(file_save);
 }
-void save_wmap()
+void save_wmap(int a, int b)
 {
 	FILE* file_save = fopen("maze.txt", "w");
 
 	fprintf(file_save, "%d ", player_HP);
+
 	for (int i = 0; i < WIDTH; i++)
 	{
 		for (int j = 0; j < HEIGHT; j++)
 		{
-			fprintf(file_save, "%d ", map[i][j]);
+			if (map[a][b] == TRUE)
+			{
+				fprintf(file_save, "%d ", 2);
+			}
+			else
+			{
+				fprintf(file_save, "%d ", map[i][j]);
+			}
+
 		}
 		fprintf(file_save, "\n");
 	}
@@ -247,7 +260,12 @@ void Move()
 		break;
 
 	case 's': //save
-		save_wmap();
+		if (map[character[Y]][character[X]] = CHARACTER)
+		{
+			a = character[Y];
+			b = character[X];
+		}
+		save_wmap(a, b);
 		system("cls");
 		printf("저장되었습니다.\n");
 		system("pause");
@@ -291,6 +309,7 @@ void MoveCheck()
 	{
 		gameplay = 0;
 		printf("GAME OVER");
+		system("pause");
 	}
 	int index = Find_Entry(character[X], character[Y]); // 포탈이동용 인덱스
 	if (index != -1)
@@ -305,6 +324,7 @@ void MoveCheck()
 		gameplay = 0;
 		printf("★★★★경★★★★축★★★★\n");
 		printf("★개미 지옥에서 탈출 완료!!★\n");
+		system("pause");
 	}
 
 	int Qindex = Find_QEntry(character[X], character[Y]); // 포탈이동용 인덱스
