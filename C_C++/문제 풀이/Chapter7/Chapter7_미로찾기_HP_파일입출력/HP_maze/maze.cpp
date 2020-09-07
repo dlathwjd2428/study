@@ -277,9 +277,9 @@ void Move()
 			character[X]--;
 			player_HP--;
 		}
-		if (map[character[Y]][character[X] - 1] == HP)
+		if (map[character[Y]][character[X]] == HP)
 		{
-			player_HP++;
+			player_HP += 2;
 		}
 		break;
 	case RIGHT:
@@ -288,9 +288,9 @@ void Move()
 			character[X]++;
 			player_HP--;
 		}
-		if (map[character[Y]][character[X] + 1] == HP)
+		if (map[character[Y]][character[X]] == HP)
 		{
-			player_HP++;
+			player_HP += 2;
 		}
 		break;
 	case UP:
@@ -299,9 +299,9 @@ void Move()
 			character[Y]--;
 			player_HP--;
 		}
-		if (map[character[Y] - 1][character[X]] == HP)
+		if (map[character[Y]][character[X]] == HP)
 		{
-			player_HP++;
+			player_HP += 2;
 		}
 		break;
 	case DOWN:
@@ -310,9 +310,9 @@ void Move()
 			character[Y]++;
 			player_HP--;
 		}
-		if (map[character[Y] + 1][character[X]] == HP)
+		if (map[character[Y]][character[X]] == HP)
 		{
-			player_HP++;
+			player_HP += 2;
 		}
 		break;
 	}
@@ -340,7 +340,6 @@ void MoveCheck()
 		gameplay = 0;
 		printf("★★★★경★★★★축★★★★\n");
 		printf("★개미 지옥에서 탈출 완료!!★\n");
-		system("pause");
 	}
 
 	int Qindex = Find_QEntry(character[X], character[Y]); // 포탈이동용 인덱스
