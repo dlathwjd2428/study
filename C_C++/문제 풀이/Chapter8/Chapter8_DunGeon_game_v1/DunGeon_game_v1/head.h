@@ -26,6 +26,6 @@ typedef struct _Character
 	float Die_EXP; //죽었을때 주는 경험치
 	bool defense_on; //방어 on/off
 	int level; //레벨
-	//player와 enemy 구분 변수
-	//enemy일 경우 공격 속도 (10당 0.1초)
+	bool player; //player와 enemy 구분 변수
+	int attack_speed;//enemy일 경우 공격 속도 (10당 0.1초)
 }Character;

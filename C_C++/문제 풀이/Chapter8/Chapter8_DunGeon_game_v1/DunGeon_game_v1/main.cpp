@@ -72,6 +72,17 @@ void Default_file(Character* Char_List[])
 		printf("가져올 데이터가 없습니다, \n");
 	else
 	{
+		Char_List[0] = (Character*)malloc(sizeof(Character));
+		scanf("%s", Char_List[0]->name);
+		fscanf(Default_fr, "%d %d %d %d %f %f %f %d %d", &Char_List[0]->offense,
+														&Char_List[0]->defense,
+														&Char_List[0]->Max_HP,
+														&Char_List[0]->Max_EXP,
+														&Char_List[0]->Die_EXP,
+														&Char_List[0]->level,
+														&Char_List[0]->player,
+														&Char_List[0]->attack_speed);
+
 		for (int i = 0; i < MAX; i++)
 		{
 			Char_List[i] = (Character*)malloc(sizeof(Character));
@@ -86,13 +97,12 @@ void Default_file(Character* Char_List[])
 			}
 			fscanf(Default_fr, "%d %d %d %d %f %f %f %d %d", &Char_List[i]->offense,
 															 &Char_List[i]->defense,
-															 &Char_List[i]->HP,
 															 &Char_List[i]->Max_HP,
-															 &Char_List[i]->EXP,
 															 &Char_List[i]->Max_EXP,
 															 &Char_List[i]->Die_EXP,
-															 &Char_List[i]->defense_on,
-															 &Char_List[i]->level);
+															 &Char_List[i]->level,
+															 &Char_List[i]->player,
+															 &Char_List[i]->attack_speed);
 		}
 		fclose(Default_fr);
 	}
