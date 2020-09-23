@@ -154,6 +154,16 @@ void SaveFile_r(Character* Char_List[])
 
 void SaveFile_w(Character* Char_List[])
 {
+	/*int f;
+	FILE *fp;
+	char ff[10];
+	for (f = 'A'; f <= 'Z'; f++)
+	{
+		sprintf(ff, "%c.txt", f);
+		fp = fopen(ff, "r");
+		fclose(fp);
+	}*/
+
 	FILE* Save_fw = fopen("SaveFile1.txt", "w");
 
 	for (int i = 0; i < MAX; i++)
