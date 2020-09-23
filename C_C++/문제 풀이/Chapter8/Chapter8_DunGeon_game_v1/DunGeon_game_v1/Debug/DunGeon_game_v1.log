@@ -1,1 +1,20 @@
-﻿  DunGeon_game_v1.vcxproj -> C:\Users\TA-A-04\Desktop\study\C_C++\문제 풀이\Chapter8\Chapter8_DunGeon_game_v1\Debug\DunGeon_game_v1.exe
+﻿  main.cpp
+c:\users\ta-a-04\desktop\study\c_c++\문제 풀이\chapter8\chapter8_dungeon_game_v1\dungeon_game_v1\main.cpp(1): warning C4067: 전처리기 지시문 다음에 예기치 않은 토큰이 있습니다. 줄 바꿈 문자가 필요합니다.
+c:\users\ta-a-04\desktop\study\c_c++\문제 풀이\chapter8\chapter8_dungeon_game_v1\dungeon_game_v1\main.cpp(190): warning C4477: 'fprintf' : 서식 문자열 '%d'에 'int' 형식의 인수가 필요하지만 variadic 인수 2의 형식이 'int *'입니다.
+c:\users\ta-a-04\desktop\study\c_c++\문제 풀이\chapter8\chapter8_dungeon_game_v1\dungeon_game_v1\main.cpp(190): warning C4477: 'fprintf' : 서식 문자열 '%d'에 'int' 형식의 인수가 필요하지만 variadic 인수 3의 형식이 'int *'입니다.
+c:\users\ta-a-04\desktop\study\c_c++\문제 풀이\chapter8\chapter8_dungeon_game_v1\dungeon_game_v1\main.cpp(190): warning C4477: 'fprintf' : 서식 문자열 '%d'에 'int' 형식의 인수가 필요하지만 variadic 인수 4의 형식이 'int *'입니다.
+c:\users\ta-a-04\desktop\study\c_c++\문제 풀이\chapter8\chapter8_dungeon_game_v1\dungeon_game_v1\main.cpp(190): warning C4477: 'fprintf' : 서식 문자열 '%d'에 'int' 형식의 인수가 필요하지만 variadic 인수 5의 형식이 'int *'입니다.
+c:\users\ta-a-04\desktop\study\c_c++\문제 풀이\chapter8\chapter8_dungeon_game_v1\dungeon_game_v1\main.cpp(190): warning C4477: 'fprintf' : 서식 문자열 '%d'에 'int' 형식의 인수가 필요하지만 variadic 인수 6의 형식이 'int *'입니다.
+c:\users\ta-a-04\desktop\study\c_c++\문제 풀이\chapter8\chapter8_dungeon_game_v1\dungeon_game_v1\main.cpp(190): warning C4477: 'fprintf' : 서식 문자열 '%f'에 'double' 형식의 인수가 필요하지만 variadic 인수 7의 형식이 'float *'입니다.
+c:\users\ta-a-04\desktop\study\c_c++\문제 풀이\chapter8\chapter8_dungeon_game_v1\dungeon_game_v1\main.cpp(190): warning C4477: 'fprintf' : 서식 문자열 '%f'에 'double' 형식의 인수가 필요하지만 variadic 인수 8의 형식이 'float *'입니다.
+c:\users\ta-a-04\desktop\study\c_c++\문제 풀이\chapter8\chapter8_dungeon_game_v1\dungeon_game_v1\main.cpp(190): warning C4477: 'fprintf' : 서식 문자열 '%d'에 'int' 형식의 인수가 필요하지만 variadic 인수 9의 형식이 'int *'입니다.
+c:\users\ta-a-04\desktop\study\c_c++\문제 풀이\chapter8\chapter8_dungeon_game_v1\dungeon_game_v1\main.cpp(190): warning C4477: 'fprintf' : 서식 문자열 '%f'에 'double' 형식의 인수가 필요하지만 variadic 인수 10의 형식이 'float *'입니다.
+c:\users\ta-a-04\desktop\study\c_c++\문제 풀이\chapter8\chapter8_dungeon_game_v1\dungeon_game_v1\main.cpp(190): warning C4477: 'fprintf' : 서식 문자열 '%d'에 'int' 형식의 인수가 필요하지만 variadic 인수 11의 형식이 'int *'입니다.
+c:\users\ta-a-04\desktop\study\c_c++\문제 풀이\chapter8\chapter8_dungeon_game_v1\dungeon_game_v1\main.cpp(190): warning C4477: 'fprintf' : 서식 문자열 '%d'에 'int' 형식의 인수가 필요하지만 variadic 인수 12의 형식이 'int *'입니다.
+c:\users\ta-a-04\desktop\study\c_c++\문제 풀이\chapter8\chapter8_dungeon_game_v1\dungeon_game_v1\main.cpp(215): warning C4477: 'printf' : 서식 문자열 '%d'에 'int' 형식의 인수가 필요하지만 variadic 인수 1의 형식이 'double'입니다.
+c:\users\ta-a-04\desktop\study\c_c++\문제 풀이\chapter8\chapter8_dungeon_game_v1\dungeon_game_v1\main.cpp(215): warning C4477: 'printf' : 서식 문자열 '%d'에 'int' 형식의 인수가 필요하지만 variadic 인수 2의 형식이 'double'입니다.
+c:\users\ta-a-04\desktop\study\c_c++\문제 풀이\chapter8\chapter8_dungeon_game_v1\dungeon_game_v1\main.cpp(241): warning C4477: 'printf' : 서식 문자열 '%d'에 'int' 형식의 인수가 필요하지만 variadic 인수 1의 형식이 'double'입니다.
+c:\users\ta-a-04\desktop\study\c_c++\문제 풀이\chapter8\chapter8_dungeon_game_v1\dungeon_game_v1\main.cpp(241): warning C4477: 'printf' : 서식 문자열 '%d'에 'int' 형식의 인수가 필요하지만 variadic 인수 2의 형식이 'double'입니다.
+c:\users\ta-a-04\desktop\study\c_c++\문제 풀이\chapter8\chapter8_dungeon_game_v1\dungeon_game_v1\main.cpp(246): warning C4477: 'printf' : 서식 문자열 '%d'에 'int' 형식의 인수가 필요하지만 variadic 인수 1의 형식이 'double'입니다.
+c:\users\ta-a-04\desktop\study\c_c++\문제 풀이\chapter8\chapter8_dungeon_game_v1\dungeon_game_v1\main.cpp(246): warning C4477: 'printf' : 서식 문자열 '%d'에 'int' 형식의 인수가 필요하지만 variadic 인수 2의 형식이 'double'입니다.
+  DunGeon_game_v1.vcxproj -> C:\Users\TA-A-04\Desktop\study\C_C++\문제 풀이\Chapter8\Chapter8_DunGeon_game_v1\Debug\DunGeon_game_v1.exe
