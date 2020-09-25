@@ -2,18 +2,21 @@
 
 int menu();
 void Default_file(Character* Char_List[]);
-int Dungeon_menu(Character* monster[]);
-void Player_info(Character* player[], int info);
+void Dungeon_menu(Character* monster[]);
+void Player_info(Character* player[], int info, int menu);
 void FileSave(Character* Char_List[]);
 void FileLoad(Character* Char_List[]);
+void InDungeon(Character* player[], int ch);
 
 int monster_count = 0;
-int set_info = 0;
 
+Character* Char_List[MAX];
 
 int main()
 {
-	Character* Char_List[MAX];
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+
+
 
 	Default_file(Char_List);
 
@@ -24,18 +27,13 @@ int main()
 		switch (menu())
 		{
 		case INDUNGEON:
-			set_info = 1;
-			switch (Dungeon_menu(Char_List))
-			{
-			case 1: 
-				Player_info(Char_List, set_info);
-			}
-			
+			Dungeon_menu(Char_List);
 			break;
 
 		case PLAYER_INFO:
 			system("cls");
-			Player_info(Char_List, set_info);
+			Player_info(Char_List, 0, 2);
+			system("pause");
 			break;
 
 		case SAVE:
@@ -46,8 +44,9 @@ int main()
 			break;
 
 		case EXIT:
-			free(Char_List);
+			free(*Char_List);
 			exit(0);
+			
 			break;
 
 		default:
@@ -61,6 +60,7 @@ int main()
 
 int menu()
 {
+	system("cls");
 	int ch = 0;
 
 	printf("=======DunGeon=======\n");
@@ -121,9 +121,10 @@ void Default_file(Character* Char_List[])
 		}
 		fclose(Default_fr);
 	}
+
 }
 
-int Dungeon_menu(Character* monster[])
+void Dungeon_menu(Character* monster[])
 {
 	int ch = 0;
 
@@ -137,19 +138,70 @@ int Dungeon_menu(Character* monster[])
 	printf("선택 : ");
 	scanf("%d", &ch);
 
-	return ch;
+	if (ch >0 && ch < 8)
+	{
+		InDungeon(Char_List, ch);
+	}
+
+	
 }
 
-void Player_info(Character* player[], int info)
+void InDungeon(Character* player[], int ch)
 {
-	printf("======%s<%dLv>======\n", player[0]->name, player[0]->level);
-	printf("공격력 = %d          방어력 = %d       생명력 = %d/%d\n", player[0]->offense, player[0]->defense, player[0]->HP, player[0]->Max_HP);
-	printf("경험치 = %d/%d       GetEXP : %d\n", player[0]->EXP, player[0]->Max_EXP, player[0]->Get_EXP);
-	if (info == 1)
+	int my_key = 0;
+
+	while (1)
+	{
+		srand((unsigned)time(NULL));
+		if (player[0]->HP <= 0 || player[ch]->HP <= 0)
+		{
+			break;
+		}
+
+		system("cls");
+		printf("조작 키 : Space<공격>, z<방어>\n");
+
+		//if(_getch()== 64||_getch()==90||_getch()==122)
+		//{
+		//	my_key = _getch();
+
+		//	if (my_key == 64)
+		//	{
+		//		player[0]->defense_on = 1;
+		//	}
+		//	else if (my_key == 90 || my_key == 122)
+		//	{
+		//		player[0]->defense_on = 0;
+		//	}
+		//}	
+
+		//Sleep(player[ch]->attack_speed);
+
+		player[ch]->defense_on = rand() % 2;
+
+		Player_info(player, 0, 0);
+		Player_info(player, ch, 0);
+	}
+}
+
+void Player_info(Character* player[], int info, int menu)
+{
+	printf("======%s<%dLv>======\n", player[info]->name, player[info]->level);
+	printf("공격력 = %d          방어력 = %d       생명력 = %d/%d\n", player[info]->offense, player[info]->defense, player[info]->HP, player[info]->Max_HP);
+	printf("경험치 = %d/%d       GetEXP : %d\n", player[info]->EXP, player[info]->Max_EXP, player[info]->Get_EXP);
+	if (menu != 2)
 	{
 		printf("방어모드 : ");
+		if (player[info]->defense_on == 0)
+		{
+			printf("O\n");
+		}
+		else
+		{
+			printf("X\n");
+		}
 	}
-	system("pause");
+	printf("============\n");
 }
 
 void FileSave(Character* Char_List[])
@@ -162,6 +214,14 @@ void FileSave(Character* Char_List[])
 	for (int i = 1; i <= 10; i++)
 	{
 		printf("\n%d번슬롯 : <파일여부 : ", i);
+		if (FileSave == NULL)
+		{
+			printf("X\n");
+		}
+		else
+		{
+			printf("O\n");
+		}
 	}
 	printf("\n선택 : ");
 

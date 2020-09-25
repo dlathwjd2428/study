@@ -1,7 +1,13 @@
 #pragma once
 #define _CRT_SECURE_NO_WARNINGS
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
+
 #include <stdio.h>
+#include <conio.h>
 #include <windows.h>
+#include <time.h>
 
 #define MAX 10
 
