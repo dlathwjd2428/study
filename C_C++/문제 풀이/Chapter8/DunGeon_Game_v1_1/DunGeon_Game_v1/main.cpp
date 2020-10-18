@@ -12,6 +12,10 @@ void FileLoad(Character* Char_List[]);
 void _info(Character* player[], int info);
 void Player_info(Character* player[], int info);
 void Monster_info(Character* player[], int info);
+void LevelUp(Character* character);
+int GetRandomInt(int min, int max);
+void Attack(Character* c1, Character* c2);
+void OnGameEnd(Character* winner, Character* loser);
 
 int monster_count = 0;
 
@@ -128,7 +132,7 @@ void Default_file(Character* Char_List[])
 
 void Dungeon_menu(Character* monster[])
 {
-	int ch = 0;
+	int ch = 0; 
 
 	system("cls");
 	printf("=====던전 입구=====\n");
@@ -221,7 +225,12 @@ void Monster_info(Character* player[], int info)
 		printf("%s가 방어했다!!",player[info]->name);
 	}
 	else if (player[info]->defense_on == 1)
-	{		
+	{	
+		if (player[0]->defense_on == 1)
+		{
+			player[0]->HP = player[0]->HP - player[info]->offense;
+		}
+
 		printf("Off\n");
 		printf("============\n");
 		printf("%s가 공격성공 했다!!",player[info]->name);
@@ -234,13 +243,19 @@ void FileSave(Character* Char_List[])
 {
 	system("cls");
 
+	FILE* FileSave;
+	char file_num[20] = { 0 };
+
 	int ch = 0;
 
 	printf("=====Save=====");
 	for (int i = 1; i <= 10; i++)
 	{
 		printf("\n%d번슬롯 : <파일여부 : ", i);
-		if (FileSave == NULL)
+
+		sprintf(file_num, "SaveFile%d.txt", i);
+
+		if (file_num == NULL)
 		{
 			printf("X\n");
 		}
@@ -253,8 +268,6 @@ void FileSave(Character* Char_List[])
 
 	scanf("%d", &ch);
 
-	FILE* FileSave;
-	char file_num[20] = {0};
 	sprintf(file_num, "SaveFile%d.txt", ch);
 	FileSave = fopen(file_num, "w");
 
@@ -346,5 +359,96 @@ void FileLoad(Character* Char_List[])
 
 		printf("불러오기가 완료되었습니다. \n");
 		system("Pause");
+	}
+}
+
+
+void LevelUp(Character* c)
+{
+	c->offense += GetRandomInt(0, 5);
+	int randomHP = GetRandomInt(0, 11);
+	c->Max_HP += randomHP;
+	c->HP += randomHP;
+}
+
+int GetRandomInt(int min, int max)
+{
+	srand(time(NULL));
+	return min + (rand() % (max - min));
+}
+
+void Attack(Character* c1, Character* c2)
+{
+	if (c1->player == 1)
+	{
+		c1->defense_on = GetRandomInt(0, 2);
+	}
+	if (c2->defense_on == 1)
+	{
+		// 방어모드 켜진거
+		if (c2->defense > c1->offense)
+		{
+			// 상대 방어력이 내 공격력보다 높음
+			// 상대는 데미지를 입지 않고 내가 딜반사 당함
+			if (c1->player == 0)
+			{
+				// 플레이어만 딜반사 당함 (몬스터는 안 당함)
+				c1->HP -= c2->defense - c1->offense;
+			}
+		}
+		else
+		{
+			// 상대 방어력이 내 공격력보다 낮음
+			// 상대는 방어력만큼 뺀 데미지를 받음
+			c2->HP -= c1->offense - c2->defense;
+		}
+	}
+	else
+	{
+		// 방어모드 꺼진거
+		c2->HP -= c1->offense;
+	}
+	if (c2->HP <= 0) {
+		// c2 사망, c1 승
+		OnGameEnd(c1, c2);
+	}
+	else if (c1->HP <= 0) {
+		// c1 사망, c2 승
+		OnGameEnd(c2, c1);
+	}
+}
+
+void OnGameEnd(Character* winner, Character* loser)
+{
+	if (winner->player == 0)
+	{
+		// 플레이어 승
+		int totalExp = winner->EXP + loser->Get_EXP;
+
+		while (totalExp >= winner->Max_EXP)
+		{
+			LevelUp(winner);
+			totalExp -= winner->Max_EXP;
+		}
+		winner->EXP = totalExp;
+	}
+	else if (loser->player == 0)
+	{
+		// 플레이어 패배
+		if (loser->EXP == 0)
+		{
+			// 게임 오버 추가
+			return;
+		}
+
+		int totalExp = winner->EXP + loser->EXP;
+
+		while (totalExp >= winner->Max_EXP)
+		{
+			LevelUp(winner);
+			totalExp -= winner->Max_EXP;
+		}
+		loser->EXP = 0;
+		winner->EXP = totalExp;
 	}
 }
