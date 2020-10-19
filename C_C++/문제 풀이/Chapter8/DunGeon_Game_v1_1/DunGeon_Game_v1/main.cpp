@@ -29,7 +29,6 @@ int main()
 
 	while (1)
 	{
-
 		system("cls");
 		switch (menu())
 		{
@@ -161,11 +160,12 @@ void InDungeon(Character* player[], int ch)
 	while (1)
 	{
 		srand((unsigned)time(NULL));
-		if (player[0]->HP <= 0 || player[ch]->HP <= 0)
-		{
-			break;
-		}
+		//if (player[0]->HP <= 0 || player[ch]->HP <= 0)
+		//{
+		//	break;
+		//}
 		system("cls");
+
 
 		Player_info(player, 0);
 		Monster_info(player, ch);
@@ -187,17 +187,18 @@ void Player_info(Character* player[], int info)
 
 	printf("방어모드 : ");
 
-	if (my_key == _getch())
-	{
-		if (my_key == 64)
-		{
-			player[0]->defense_on = 1;
-		}
-		else if (my_key == 90 || my_key == 122)
-		{
-			player[0]->defense_on = 0;
-		}
-	}
+
+	//if (my_key == _getch())
+	//{
+	//	if (my_key == 64)
+	//	{
+	//		player[0]->defense_on = 1;
+	//	}
+	//	else if (my_key == 90 || my_key == 122)
+	//	{
+	//		player[0]->defense_on = 0;
+	//	}
+	//}
 
 	if (player[info]->defense_on == 0)
 	{
@@ -362,19 +363,18 @@ void FileLoad(Character* Char_List[])
 	}
 }
 
-
-void LevelUp(Character* c)
+void LevelUp(Character* ch)
 {
-	c->offense += GetRandomInt(0, 5);
+	ch->offense += GetRandomInt(0, 5);
 	int randomHP = GetRandomInt(0, 11);
-	c->Max_HP += randomHP;
-	c->HP += randomHP;
+	ch->Max_HP += randomHP;
+	ch->HP += randomHP;
 }
 
 int GetRandomInt(int min, int max)
 {
 	srand(time(NULL));
-	return min + (rand() % (max - min));
+	return rand() % (max - min);
 }
 
 void Attack(Character* c1, Character* c2)
@@ -432,7 +432,7 @@ void OnGameEnd(Character* winner, Character* loser)
 		}
 		winner->EXP = totalExp;
 	}
-	else if (loser->player == 0)
+	else if (loser->player == 1)
 	{
 		// 플레이어 패배
 		if (loser->EXP == 0)
