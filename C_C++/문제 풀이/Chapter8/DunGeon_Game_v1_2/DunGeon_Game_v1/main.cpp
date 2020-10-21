@@ -8,11 +8,11 @@ void InDungeon(Character* player[], int ch);
 void Default_file(Character* Char_List[]);
 void FileSave(Character* Char_List[]);
 void FileLoad(Character* Char_List[]);
-
+void Copy_Monster(Character* from, Character* to);
 void _info(Character* player[], int info);
 void LevelUp(Character* character);
-int RandNum(int min, int max);
-void Attack(Character* c1, Character* c2);
+int GetRandomInt(int min, int max);
+void print_dungeon(Character* player[], int ch);
 void OnGameEnd(Character* winner, Character* loser);
 
 int monster_count = 0;
@@ -23,6 +23,7 @@ int main()
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
+	srand((unsigned int)time(NULL));
 	Default_file(Char_List);
 
 	while (1)
@@ -50,7 +51,7 @@ int main()
 		case EXIT:
 			free(*Char_List);
 			exit(0);
-			
+
 			break;
 
 		default:
@@ -73,7 +74,7 @@ int menu()
 	printf("    3.Save\n");
 	printf("    4.Load\n");
 	printf("    5.종료\n");
-	printf("    입력> ");
+	printf("    입력 : ");
 
 	scanf("%d", &ch);
 
@@ -94,9 +95,9 @@ void Default_file(Character* Char_List[])
 		scanf("%s", Char_List[0]->name);
 		fscanf(Default_fr, "%d", &Char_List[0]->offense);
 		fscanf(Default_fr, "%d", &Char_List[0]->defense);
-		fscanf(Default_fr, "%d", &Char_List[0]->Max_HP);		
+		fscanf(Default_fr, "%d", &Char_List[0]->Max_HP);
 		fscanf(Default_fr, "%d", &Char_List[0]->Max_EXP);
-		fscanf(Default_fr, "%d", &Char_List[0]->Get_EXP);		
+		fscanf(Default_fr, "%d", &Char_List[0]->Get_EXP);
 		fscanf(Default_fr, "%d", &Char_List[0]->level);
 		fscanf(Default_fr, "%d", &Char_List[0]->player);
 		fscanf(Default_fr, "%d", &Char_List[0]->attack_speed);
@@ -110,12 +111,12 @@ void Default_file(Character* Char_List[])
 		{
 			Char_List[i] = (Character*)malloc(sizeof(Character));
 
-			fscanf(Default_fr, "%s", Char_List[i]->name);				
+			fscanf(Default_fr, "%s", Char_List[i]->name);
 			fscanf(Default_fr, "%d", &Char_List[i]->offense);
 			fscanf(Default_fr, "%d", &Char_List[i]->defense);
-			fscanf(Default_fr, "%d", &Char_List[i]->Max_HP);			
+			fscanf(Default_fr, "%d", &Char_List[i]->Max_HP);
 			fscanf(Default_fr, "%d", &Char_List[i]->Max_EXP);
-			fscanf(Default_fr, "%d", &Char_List[i]->Get_EXP);		
+			fscanf(Default_fr, "%d", &Char_List[i]->Get_EXP);
 			fscanf(Default_fr, "%d", &Char_List[i]->level);
 			fscanf(Default_fr, "%d", &Char_List[i]->player);
 			fscanf(Default_fr, "%d", &Char_List[i]->attack_speed);
@@ -127,78 +128,141 @@ void Default_file(Character* Char_List[])
 	}
 }
 
+void Copy_Monster(Character* from, Character* to) {
+	strcpy(to->name, from->name);
+	to->offense = from->offense;
+	to->defense = from->defense;
+	to->HP = from->HP;
+	to->Max_HP = from->Max_HP;
+	to->EXP = from->EXP;
+	to->Max_EXP = from->Max_EXP;
+	to->Get_EXP = from->Get_EXP;
+	to->defense_on = from->defense_on;
+	to->level = from->level;
+	to->player = from->player;
+	to->attack_speed = from->attack_speed;
+}
+
 void Dungeon_menu(Character* monster[])
 {
-	int ch = 0; 
+	int ch = 0, i;
+	while (1) {
+		system("cls");
+		printf("=====던전 입구=====\n");
+		for (i = 1; i <= monster_count; i++)
+		{
+			printf("  %d.%d층던전 : [%s]\n", i, i, monster[i]->name);
+		}
+		printf("  %d.돌아가기\n", i);
+		printf("선택 : ");
+		scanf("%d", &ch);
 
-	system("cls");
-	printf("=====던전 입구=====\n");
-	for (int i = 1; i <= monster_count; i++)
-	{
-		printf("  %d.%d층던전 : [%s]\n", i, i, monster[i]->name);
+		if (ch > 0 && ch < i)
+		{
+			Character* Monst = (Character*)malloc(sizeof(Character));
+			Copy_Monster(Char_List[ch], Monst);
+			InDungeon(Char_List, ch);
+			Copy_Monster(Monst, Char_List[ch]);
+		}
+		else if (ch == i) return;
 	}
-	printf("  8.돌아가기\n");
-	printf("선택 : ");
-	scanf("%d", &ch);
 
-	if (ch >0 && ch < 8)
-	{
-		InDungeon(Char_List, ch);
-	}
-	else
-	{
-		Dungeon_menu(Char_List);
-	}
-	
 }
 
-void InDungeon(Character* player[], int ch)
-{
-	printf("조작 키 : Space<공격>, z<방어>\n");
 
-	char my_key = 0;
-
-	system("cls");
-	while (1)
-	{
-		_info(Char_List, 0);
-
-		printf("방어모드 : ");
-
-		if (my_key == _getch())
-		{
-			if (my_key == 64)
-			{
-				player[0]->defense_on = 1;
-			}
-			else if (my_key == 90 || my_key == 122)
-			{
-				player[0]->defense_on = 0;
-			}
-		}
-
-		if (player[0]->defense_on == 0)
-		{
-			printf("On\n");
-		}
-		else
-		{
-			printf("Off\n");
-		}
-		printf("============\n");
-		Attack(player[ch], player[0]);
-	}
-	
-}
-
-void _info(Character* player[], int info)
+void _info(Character * player[], int info)
 {
 	printf("======%s<%dLv>======\n", player[info]->name, player[info]->level);
 	printf("공격력 = %d          방어력 = %d       생명력 = %d/%d\n", player[info]->offense, player[info]->defense, player[info]->HP, player[info]->Max_HP);
 	printf("경험치 = %d/%d       GetEXP : %d\n", player[info]->EXP, player[info]->Max_EXP, player[info]->Get_EXP);
+	printf("방어모드 : ");
+	if (player[info]->defense_on == 1)
+		printf("On\n");
+	else printf("Off\n");
+	printf("============\n");
 }
 
-void FileSave(Character* Char_List[])
+void print_dungeon(Character * player[], int ch) {
+	system("cls");
+	printf("조작 키 : Space(공격), z<(방어)\n");
+	_info(Char_List, 0);
+	_info(Char_List, ch);
+}
+void InDungeon(Character * player[], int ch)
+{
+	int my_key = 0;
+	clock_t start = clock();
+	print_dungeon(player, ch);
+	while (1)
+	{
+
+		if (clock() - start >= player[ch]->attack_speed * 10) {
+			player[ch]->defense_on = GetRandomInt(0, 2);
+			start = clock();
+
+			if (player[ch]->defense_on == 1) {
+				print_dungeon(player, ch);
+				printf("%s가 방어했다!!", player[ch]->name);
+				Sleep(100);
+			}
+			else if (player[ch]->defense_on == 0) {
+				//player defense on
+				if (player[0]->defense_on == 1)
+				{
+					//com offense > player defense
+					if (player[ch]->offense > player[0]->defense) {
+						player[0]->HP -= player[ch]->offense - player[0]->defense;
+					}
+					//else no hp decrease
+				}
+				else { //player defense off
+					player[0]->HP -= player[ch]->offense;
+				}
+				print_dungeon(player, ch);
+				printf("%s가 공격성공 했다!!", player[ch]->name);
+				Sleep(100);
+			}
+		}
+
+		if (_kbhit() != 0)
+		{
+			my_key = _getch();
+			if (my_key == 90 || my_key == 122)
+			{
+				player[0]->defense_on = 1;
+				print_dungeon(player, ch);
+				printf("%s가 방어했다!!", player[0]->name);
+			}
+			else if (my_key == 32)
+			{
+				player[0]->defense_on = 0;
+
+				if (player[ch]->defense_on == 1) {
+					if (player[ch]->defense > player[0]->offense) {
+						player[0]->HP -= player[ch]->defense - player[0]->offense;
+					}
+					else player[ch]->HP -= player[0]->offense - player[ch]->defense;
+				}
+				else player[ch]->HP -= player[0]->offense;
+
+				print_dungeon(player, ch);
+				printf("%s가 공격성공 했다!!", player[0]->name);
+				Sleep(100);
+			}
+		}
+		if (player[0]->HP <= 0) {
+			OnGameEnd(player[ch], player[0]);
+			break;
+		}
+		else if (player[ch]->HP <= 0) {
+			OnGameEnd(player[0], player[ch]);
+			break;
+		}
+	}
+}
+
+
+void FileSave(Character * Char_List[])
 {
 	system("cls");
 
@@ -257,8 +321,8 @@ void FileSave(Character* Char_List[])
 	system("Pause");
 }
 
-void FileLoad(Character* Char_List[])
-{		
+void FileLoad(Character * Char_List[])
+{
 	system("cls");
 
 	int ch = 0;
@@ -321,89 +385,70 @@ void FileLoad(Character* Char_List[])
 	}
 }
 
-void LevelUp(Character* ch)
+void LevelUp(Character * ch)
 {
-	ch->offense += RandNum(0, 5);
-	int randomHP = RandNum(0, 11);
+	int randomOff, randomDef, randomHP;
+	printf("%s 레벨업!!\n", ch->name);
+	ch->level++;
+
+	randomOff = GetRandomInt(0, 5);
+	ch->offense += randomOff;
+	printf("공격력 %d 증가!!\n", randomOff);
+
+	randomDef = GetRandomInt(0, 5);
+	ch->defense += randomDef;
+	printf("방어력 %d 증가!!\n", randomDef);
+
+	randomHP = GetRandomInt(0, 11);
 	ch->Max_HP += randomHP;
-	ch->HP += randomHP;
+	ch->HP = ch->Max_HP;
+	printf("생명력 %d 증가!!\n", randomHP);
 }
 
-int RandNum(int min, int max)
+int GetRandomInt(int min, int max)
 {
-	srand(time(NULL));
 	return rand() % (max - min);
 }
 
-void Attack(Character* c1, Character* c2)
+
+void OnGameEnd(Character * winner, Character * loser)
 {
-	if (c1->player == 1)
-	{
-		c1->defense_on = RandNum(0, 2);
-	}
+	int totalExp;
 
-	if (c2->defense_on == 1)
-	{
-		// 방어모드 켜진거
-		if (c2->defense > c1->offense)
-		{
-			// 상대 방어력이 내 공격력보다 높음
-			// 상대는 데미지를 입지 않고 내가 딜반사 당함
-			if (c1->player == 0)
-			{
-				// 플레이어만 딜반사 당함 (몬스터는 안 당함)
-				c1->HP -= c2->defense - c1->offense;
-			}
-		}
-		else
-		{
-			// 상대 방어력이 내 공격력보다 낮음
-			// 상대는 방어력만큼 뺀 데미지를 받음
-			c2->HP -= c1->offense - c2->defense;
-		}
-	}
-	else
-	{
-		// 방어모드 꺼진거
-		c2->HP -= c1->offense;
-	}
-
-	if (c2->HP <= 0)
-	{
-		// c2 사망, c1 승
-		OnGameEnd(c1, c2);
-	}
-	else if (c1->HP <= 0)
-	{
-		// c1 사망, c2 승
-		OnGameEnd(c2, c1);
-	}
-}
-
-void OnGameEnd(Character* winner, Character* loser)
-{
-	if (winner->player == 0)
+	if (winner->player == 1)
 	{
 		// 플레이어 승
-		int totalExp = winner->EXP + loser->Get_EXP;
+		system("cls");
+		printf("%s 승리!!\n", winner->name);
+		printf("%s가 경험치 %d를 얻었습니다.\n", winner->name, loser->Get_EXP);
+
+		totalExp = winner->EXP + loser->Get_EXP;
 
 		while (totalExp >= winner->Max_EXP)
 		{
 			LevelUp(winner);
 			totalExp -= winner->Max_EXP;
 		}
-		winner->EXP = totalExp;
+		winner->EXP = winner->Get_EXP = totalExp;
+
+
 	}
 	else if (loser->player == 1)
 	{
 		// 플레이어 패배
-		if (loser->EXP == 0)
+		system("cls");
+		printf("%s 승리!!\n", winner->name);
+		printf("%s가 경험치 %d를 얻었습니다.\n", winner->name, loser->Get_EXP);
+		if (loser->Get_EXP == 0)
 		{
-			// 게임 오버 추가
-			return;
+			printf("Game Over\n");
+			free(*Char_List);
+			printf("계속하려면 아무 키나 누르십시오 . . . \n");
+			while (_kbhit() == 0) {
+			}
+			exit(0);
 		}
-
-		int totalExp = winner->EXP + loser->EXP;
+		totalExp = winner->EXP + loser->EXP;
 
 		while (totalExp >= winner->Max_EXP)
 		{
@@ -411,6 +456,12 @@ void OnGameEnd(Character* winner, Character* loser)
 			totalExp -= winner->Max_EXP;
 		}
 		loser->EXP = 0;
-		winner->EXP = totalExp;
+		winner->EXP = winner->Get_EXP = totalExp;
 	}
+	printf("계속하려면 아무 키나 누르십시오 . . . \n");
+
+	while (_kbhit() == 0) {
+	}
+	int my_key = _getch();
+	return;
 }
