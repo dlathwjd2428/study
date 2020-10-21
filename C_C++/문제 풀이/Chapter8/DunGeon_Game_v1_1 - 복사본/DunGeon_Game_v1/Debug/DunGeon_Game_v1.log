@@ -1,7 +1,0 @@
-﻿  main.cpp
-c:\users\ta-a-04\desktop\study\c_c++\문제 풀이\chapter8\dungeon_game_v1_1 - 복사본\dungeon_game_v1\main.cpp(342): warning C4244: '인수': 'time_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\ta-a-04\desktop\study\c_c++\문제 풀이\chapter8\dungeon_game_v1_1 - 복사본\dungeon_game_v1\main.cpp(411): warning C4477: 'printf' : 서식 문자열 '%s'에 'char *' 형식의 인수가 필요하지만 variadic 인수 1의 형식이 'int'입니다.
-c:\users\ta-a-04\desktop\study\c_c++\문제 풀이\chapter8\dungeon_game_v1_1 - 복사본\dungeon_game_v1\main.cpp(411): warning C4473: 'printf': 서식 문자열에 대한 인수가 충분하게 전달되지 않았습니다.
-  c:\users\ta-a-04\desktop\study\c_c++\문제 풀이\chapter8\dungeon_game_v1_1 - 복사본\dungeon_game_v1\main.cpp(411): note: 자리 표시자 및 해당 매개 변수에는 variadic 인수가 2개 필요하지만 1개가 제공되었습니다.
-  c:\users\ta-a-04\desktop\study\c_c++\문제 풀이\chapter8\dungeon_game_v1_1 - 복사본\dungeon_game_v1\main.cpp(411): note: 누락된 variadic 인수 2이(가) 서식 문자열 '%d'에 필요합니다.
-  DunGeon_Game_v1.vcxproj -> C:\Users\TA-A-04\Desktop\study\C_C++\문제 풀이\Chapter8\DunGeon_Game_v1_1 - 복사본\Debug\DunGeon_Game_v1.exe
