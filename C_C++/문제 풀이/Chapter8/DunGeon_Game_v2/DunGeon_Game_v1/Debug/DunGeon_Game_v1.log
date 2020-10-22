@@ -1,0 +1,3 @@
+﻿  main.cpp
+c:\users\ta-a-04\desktop\study\c_c++\문제 풀이\chapter8\dungeon_game_v1_3\dungeon_game_v1\main.cpp(398): warning C4101: 'randomDef' :참조되지 않은 지역 변수입니다.
+  DunGeon_Game_v1.vcxproj -> C:\Users\TA-A-04\Desktop\study\C_C++\문제 풀이\Chapter8\DunGeon_Game_v1_3\Debug\DunGeon_Game_v1.exe
