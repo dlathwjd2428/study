@@ -1,0 +1,422 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define MAX 10
+#define TRUE 1
+#define PLAYERINDEX 0
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+typedef struct Character {
+	char Name[10]; //이름
+	int Attack; //공격력
+	int HP; //현재 체력
+	int MAX_HP; //최대 체력
+	int EXP; //현재 경험치
+	int MAX_EXP; //최대 경험치
+	int GET_EXP; //죽었을 때 주는 경험치
+	int Level; //레벨
+	int FLAG; //player와 enemy를 구분하는 변수 FLAG 0 이면 enemy 1이면 player 
+}Character;
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+int CharacterCount = 0;
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+void menu() // 초기 화면 메뉴
+{
+	printf("======DunGeon======\n");
+	printf("	1. 던전 입장 \n");
+	printf("	2. Play 정보 \n");
+	printf("	3. Save \n");
+	printf("	4. Load \n");
+	printf("	5. 종료 \n");
+	printf("=====================\n");
+	printf("입력 : ");
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//적군과 아군의 능력치 그리고 적군의 종류는 모두 게임 시작할때 파일입출력으로 Default.txt 에서 받아온다.
+int Dungeon(Character* ch[]) // 디폴트값 게임 설정
+{
+	int Select;
+	system("cls");
+	printf("======던전 입구======\n");
+	printf("	1. 1층 던전 : [%s] \n", (ch + 1)->Name);
+	printf("	2. 2층 던전 : [%s] \n", (ch + 2)->Name);
+	printf("	3. 3층 던전 : [%s]  \n", (ch + 3)->Name);
+	printf("	4. 4층 던전 : [%s]  \n", (ch + 4)->Name);
+	printf("	5. 5층 던전 : [%s]  \n", (ch + 5)->Name);
+	printf("	6. 6층 던전 : [%s]  \n", (ch + 6)->Name);
+	printf("	7. 7층 던전 : [%s]  \n", (ch + 7)->Name);
+	printf("	8. 돌아가기  \n");
+	printf("=====================\n");
+	printf("선택 : ");
+	scanf("%d", &Select);
+
+	return Select;
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void Now_Player(Character* ch[])
+{
+	system("cls");
+	printf("============%s(%dLv)============\n", ch->Name, ch->Level); //player
+	printf("공격력 = %d		생명력 = %d/%d\n", ch->Attack, ch->HP);
+	printf("경험치 = %d/%d	GetEXP = %d\n", ch->EXP, ch->GET_EXP);
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+void Player_Level_Up(Character* ch) //rand이용 레벨업시 공격력 0-4, 생명령 0-10 랜덤증가
+{
+	int Attack_Random = rand() % 5;
+	int HP_Randome = rand() % 11;
+	if((ch->EXP) == (ch->MAX_EXP))
+	{
+		(ch->Level)++;
+		(ch->Attack) += Attack_Random;
+		(ch->HP) += HP_Randome;
+	}
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//4.enemy도 레벨업을 하며
+//player는 패배시 본인이 획득한 모든 경험치를 몬스터에게 반환하며 0이된다.
+
+void Monster_Level_up(Character* ch)
+{
+	int Attack_Random = rand() % 5;
+	int HP_Randome = rand() % 11;
+	int Return_Exp = 0;
+	if((ch->FLAG) == 0)
+		Return_Exp = (ch->EXP);
+	if((ch->EXP) == (ch->MAX_EXP))
+	{
+		(ch->Level)++;
+		(ch->Attack) += Attack_Random;
+		(ch->HP) += HP_Randome;
+		(ch->EXP) += Return_Exp;
+	}
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//5.player의 경험치가 0인 상황에서 패배시 gameover된다.
+
+void gameover(Character* ch)
+{
+	if((ch->HP) <= 0)
+	{
+		system("cls");
+		printf("패배하셨습니다.\n");
+		return;
+	}
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//6.play는 가위 바위 보 로진행되며 적군은 rand()함수로 가위바위보를 뽑는다.
+//
+void Gameplay(Character* ch[], int MonsterIndex)
+{
+	int Select;
+	int M_Rnum = rand() % 3;//player 가위바위보 변수        가위바위보 랜덤 변수는 012중 하나나와야함
+	while(((ch[PLAYERINDEX]->HP) == NULL) || (ch[a]->HP) == NULL)
+	{
+		system("cls");
+		printf("============%s(%dLv)============\n", ch->Name, ch->Level); //player
+		printf("공격력 = %d		생명력 = %d/%d\n", ch->Attack, ch->HP);
+		printf("경험치 = %d/%d	GetEXP = %d\n");
+		printf("============%s(%dLv)============\n"); //monster
+		printf("공격력 = %d		생명력 = %d/%d\n");
+		printf("경험치 = %d/%d	GetEXP = %d\n");
+		printf("=================================\n");
+		printf("%s 입력\n");
+		printf("가위 : 0, 바위 : 1, 보 : 2\n");
+
+
+		printf("[ 입력 ] : ");
+		scanf("%d", &Select);
+
+		switch(Select)
+		{
+			case 0: //가위
+				if(M_Rnum == 0)
+				{
+					printf("%s : 가위 \n"); //player;
+					printf("%s : 가위 \n"); //monster;
+					printf("비겼습니다 \n");
+				}
+				else if(M_Rnum == 1)
+				{
+					printf("%s : 가위 \n"); //player;
+					printf("%s : 바위 \n"); //monster;
+					printf("졌습니다. \n");
+				}
+				else if(M_Rnum == 2)
+				{
+					printf("%s : 가위 \n"); //player;
+					printf("%s : 가위 \n"); //monster;
+					printf("비겼습니다 \n");
+				}
+				break;
+			case 1: //바위
+				if(M_Rnum == 0)
+				{
+					printf("%s : 가위 \n"); //player;
+					printf("%s : 가위 \n"); //monster;
+					printf("비겼습니다 \n");
+				}
+				else if(M_Rnum == 1)
+				{
+					printf("%s : 가위 \n"); //player;
+					printf("%s : 바위 \n"); //monster;
+					printf("졌습니다. \n");
+				}
+				else if(M_Rnum == 2)
+				{
+					printf("%s : 가위 \n"); //player;
+					printf("%s : 가위 \n"); //monster;
+					printf("비겼습니다 \n");
+				}
+				break;
+			case 2: //보
+				if(M_Rnum == 0)
+				{
+					printf("%s : 가위 \n"); //player;
+					printf("%s : 가위 \n"); //monster;
+					printf("비겼습니다 \n");
+				}
+				else if(M_Rnum == 1)
+				{
+					printf("%s : 가위 \n"); //player;
+					printf("%s : 바위 \n"); //monster;
+					printf("졌습니다. \n");
+				}
+				else if(M_Rnum == 2)
+				{
+					printf("%s : 가위 \n"); //player;
+					printf("%s : 가위 \n"); //monster;
+					printf("비겼습니다 \n");
+				}
+				break;
+			default:
+				printf("오류! 다시입력해주세요 \n");
+				break;
+		}
+	}
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//7. 저장과 불러오기는 파일이름을 미리정해뒀으며 슬롯에따라 뒤에 숫자가 붙는 이름이다.
+//sprintf로 이름을 완성 후 불러오거나 저장하면된다.
+//
+void SaveFile(Character* ch[])
+{
+	int Select;
+	FILE *f;
+	char Blank[10];
+	printf("==============save==============\n");
+	for(int i = 0; i < 10; i++)
+	{
+		if(f == NULL)
+			Blank[i] = 'X';
+		else
+			Blank[i] = 'O';
+		printf("%d번 슬롯 :(파일여부 : %c\n", i + 1, Blank[i]);
+	}
+	printf("[ 선택 ] : ");
+	scanf("%d", &Select);
+	switch(Select)
+	{
+		case 1:
+			fopen("SaveFile1.txt", "w");
+			for(int i = 0; i<CharacterCount; i++)
+			{
+				fprintf(f, "%s %d %d %d %d %d %d", (ch + i)->Name, (ch + i)->Attack, (ch + i)->HP, (ch + i)->EXP, (ch + i)->GET_EXP, (ch + i)->Level, (ch + i)->FLAG);
+			}
+			fclose(f);
+			break;
+		case 2:
+			fopen("SaveFile2.txt", "w");
+			for(int i = 0; i<CharacterCount; i++)
+			{
+				fprintf(f, "%s %d %d %d %d %d %d", (ch + i)->Name, (ch + i)->Attack, (ch + i)->HP, (ch + i)->EXP, (ch + i)->GET_EXP, (ch + i)->Level, (ch + i)->FLAG);
+			}
+			fclose(f);
+			break;
+		case 3:
+			fopen("SaveFile3.txt", "w");
+			for(int i = 0; i<CharacterCount; i++)
+			{
+				fprintf(f, "%s %d %d %d %d %d %d", (ch + i)->Name, (ch + i)->Attack, (ch + i)->HP, (ch + i)->EXP, (ch + i)->GET_EXP, (ch + i)->Level, (ch + i)->FLAG);
+			}
+			fclose(f);
+			break;
+		case 4:
+			fopen("SaveFile4.txt", "w");
+			for(int i = 0; i<CharacterCount; i++)
+			{
+				fprintf(f, "%s %d %d %d %d %d %d", (ch + i)->Name, (ch + i)->Attack, (ch + i)->HP, (ch + i)->EXP, (ch + i)->GET_EXP, (ch + i)->Level, (ch + i)->FLAG);
+			}
+			fclose(f);
+			break;
+		case 5:
+			fopen("SaveFile5.txt", "w");
+			for(int i = 0; i<CharacterCount; i++)
+			{
+				fprintf(f, "%s %d %d %d %d %d %d", (ch + i)->Name, (ch + i)->Attack, (ch + i)->HP, (ch + i)->EXP, (ch + i)->GET_EXP, (ch + i)->Level, (ch + i)->FLAG);
+			}
+			fclose(f);
+			break;
+		case 6:
+			fopen("SaveFile6.txt", "w");
+			for(int i = 0; i<CharacterCount; i++)
+			{
+				fprintf(f, "%s %d %d %d %d %d %d", (ch + i)->Name, (ch + i)->Attack, (ch + i)->HP, (ch + i)->EXP, (ch + i)->GET_EXP, (ch + i)->Level, (ch + i)->FLAG);
+			}
+			fclose(f);
+			break;
+		case 7:
+			fopen("SaveFile7.txt", "w");
+			for(int i = 0; i<CharacterCount; i++)
+			{
+				fprintf(f, "%s %d %d %d %d %d %d", (ch + i)->Name, (ch + i)->Attack, (ch + i)->HP, (ch + i)->EXP, (ch + i)->GET_EXP, (ch + i)->Level, (ch + i)->FLAG);
+			}
+			fclose(f);
+			break;
+		case 8:
+			fopen("SaveFile8.txt", "w");
+			for(int i = 0; i<CharacterCount; i++)
+			{
+				fprintf(f, "%s %d %d %d %d %d %d", (ch + i)->Name, (ch + i)->Attack, (ch + i)->HP, (ch + i)->EXP, (ch + i)->GET_EXP, (ch + i)->Level, (ch + i)->FLAG);
+			}
+			fclose(f);
+			break;
+		case 9:
+			fopen("SaveFile9.txt", "w");
+			for(int i = 0; i<CharacterCount; i++)
+			{
+				fprintf(f, "%s %d %d %d %d %d %d", (ch + i)->Name, (ch + i)->Attack, (ch + i)->HP, (ch + i)->EXP, (ch + i)->GET_EXP, (ch + i)->Level, (ch + i)->FLAG);
+			}
+			fclose(f);
+			break;
+		case 10:
+			fopen("SaveFile10.txt", "w");
+			for(int i = 0; i<CharacterCount; i++)
+			{
+				fprintf(f, "%s %d %d %d %d %d %d", (ch + i)->Name, (ch + i)->Attack, (ch + i)->HP, (ch + i)->EXP, (ch + i)->GET_EXP, (ch + i)->Level, (ch + i)->FLAG);
+			}
+			fclose(f);
+			break;
+
+	}
+}
+
+void LoadFile()
+{
+	FILE *f;
+	int Select;
+	char Blank[10];
+	if(f == NULL)
+		printf("가져올 데이터가 없습니다.\n");
+	else
+	{
+		printf("==============load==============\n");
+		for(int i = 0; i < 10; i++)
+		{
+			if(f == NULL)
+				Blank[i] = 'X';
+			else
+				Blank[i] = 'O';
+			printf("%d번 슬롯 :(파일여부 : %c\n", i + 1, Blank[i]);
+		}
+		printf("[ 선택 ] : ");
+		scanf("%d", &Select);
+		switch(Select)
+		{
+
+		}
+	}
+
+
+
+}
+void Set_Character(Character* ch, int* count)
+{
+
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+void main()
+{
+	int play = 1; // 종료하기 위한 변수
+	int Select; // 메뉴선택을 받기위한 변수
+	int LoadState;
+	Character* Character_List[MAX]; // 캐릭터(혹은 적군) 정보 저장을 위한 리스트 max=10 
+	Character_List[CharacterCount] = (Character*)malloc(sizeof(Character));
+	/*
+	printf("플레이어 이름 입력: ");
+	scanf("%s", &Character_List[0]->Name);*/
+	//////////// default 정보 불러오는 부분
+	FILE* f = fopen("Default.txt", "r");
+	int i = CharacterCount;
+	int MonsterCount;
+	LoadState = TRUE;
+	fscanf(f, "%d", Character_List[PLAYERINDEX]->Attack);
+	fscanf(f, "%d", Character_List[PLAYERINDEX]->HP);
+	fscanf(f, "%d", Character_List[PLAYERINDEX]->EXP);
+	fscanf(f, "%d", Character_List[PLAYERINDEX]->GET_EXP);
+	fscanf(f, "%d", Character_List[PLAYERINDEX]->Level);
+	fscanf(f, "%d", Character_List[PLAYERINDEX]->FLAG);
+	i++;
+	CharacterCount++;
+	fscanf(f, "%d", &MonsterCount);
+	for(int j = 1; j < MonsterCount; j++)
+	{
+		if(i >= 10)
+		{
+			printf("더이상 캐릭터를 등록할 수 없습니다.\n");
+			CharacterCount = 10;
+			break;
+		}
+
+		Character_List[i] = (Character*)malloc(sizeof(Character));
+		fscanf(f, "%s", Character_List[j]->Name);
+		fscanf(f, "%d", Character_List[j]->Attack);
+		fscanf(f, "%d", Character_List[j]->HP);
+		fscanf(f, "%d", Character_List[j]->EXP);
+		fscanf(f, "%d", Character_List[j]->GET_EXP);
+		fscanf(f, "%d", Character_List[j]->Level);
+		fscanf(f, "%d", Character_List[j]->FLAG);
+		i++;
+		CharacterCount++;
+
+	}
+	fclose(f);
+	if(LoadState == TRUE)
+		CharacterCount += MonsterCount;
+	printf("default 불러오기가 완료되었습니다.\n");
+	system("Pause");
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+	while(play) // 무한반복
+	{
+		system("cls"); //화면전체 지움
+		menu(); // 메뉴오픈
+		scanf("%d", &Select);	//메뉴 번호를 입력받음
+
+		switch(Select) // 입력받은 번호를 스위치문의 스위치로 설정
+		{
+			case 1: // 던전 입장
+				Gameplay(Character_List, Dungeon(Character_List));
+				break;
+			case 2: //Player 정보
+				Now_Player(Character_List);
+				break;
+			case 3: // Save 
+				SaveFile(Character_List);
+				break;
+			case 4: // Load
+				LoadFile(Character_List);
+				break;
+			case 5: //종료
+				play = 0; // play를 0으로 설정하여 무한반복을 종료시킴
+				return;
+		}
+	}
+}
