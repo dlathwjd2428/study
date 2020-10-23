@@ -1,0 +1,61 @@
+#include<stdio.h>
+#include<Windows.h>
+
+void Draw(int a[][10])
+{
+	for (int y = 0; y < 10; y++)
+	{
+		for (int x = 0; x < 10; x++)
+		{
+			if (a[y][x] == 1)
+				printf("¡Ù");
+			else
+				printf("  ");
+		}
+		printf("\n");
+	}
+}
+
+void Update(int a[][10])
+{
+	for (int y = 0; y < 10; y++)
+	{
+		for (int x = 0; x < 10; x++)
+		{
+			if (a[y][x] == 1)
+			{
+				if (x - 1 < 0)
+				{
+					a[y][x] = 0;
+					a[y][9] = 1;
+				}
+				else
+				{
+					a[y][x] = 0;
+					a[y][x - 1] = 1;
+				}
+			}
+		}
+	}
+}
+
+
+void main()
+{
+	int a[10][10] = { 0 };
+	for (int y = 0; y < 10; y++)
+	{
+		for (int x = 0; x < 10; x++)
+		{
+			if (x == 9)
+				a[y][x] = 1;
+		}
+	}
+	while (1)
+	{
+		Draw(a);
+		Sleep(500);
+		system("cls");
+		Update(a);
+	}
+}
