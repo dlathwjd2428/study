@@ -32,11 +32,11 @@ void Sign_UP(Member* mem[], int* num);
 void SignUP_ID(Member* mem[], int* num);
 void SignUP_PASS(Member* mem[], int* num);
 
-void Sign_In();
-int Log_Menu();
-void Info(Member* Member);
-int Info_ReMenu(Member* Member);
-void Info_Re(Member* Member);
+void Sign_In(Member* mem[]);
+void Log_Menu(int num);
+void Info(Member* Member[], int num);
+void Info_ReMenu(Member* Member[], int num);
+void Info_Re(Member* Member[], int num, int ch);
 
 
 Member* Member_List[MAX];
@@ -59,7 +59,7 @@ void main()
 			Sign_UP(Member_List, &member_count);
 			break;
 		case 2:
-			Sign_In();
+			Sign_In(Member_List);
 			break;
 		case 3:
 			for (int i = 0; i < member_count; i++)
@@ -119,6 +119,7 @@ void Sign_UP(Member* mem[], int* num)
 	cout << "휴대폰 번호 입력 : ";
 	cin >> mem[*num]->phone_num;
 	cout << "회원가입 성공!! 마일리지 1000원 등록" << endl;
+	mem[*num]->point += 1000;
 	++(*num);
 	system("pause");
 }
@@ -144,6 +145,16 @@ void SignUP_ID(Member* mem[], int* num)
 		cout << "id가 세글자 이하 입니다." << endl;
 		system("pause");
 		SignUP_ID(Member_List, &member_count);
+	}
+
+	for (int i = 0; i < *num - 1; i++)
+	{
+		if (mem[i]->ID == mem[*num]->ID)
+		{
+			cout << "동일한 아이디가 존재합니다.";
+			system("pause");
+			SignUP_ID(Member_List, &member_count);
+		}
 	}
 }
 
@@ -204,91 +215,132 @@ void Sign_In(Member* mem[])
 	string ID;
 	string PASS;
 
-	cout << "아이디 입력 : ";
-	cin >> ID;
-
-	for (int i = 0; i < member_count; i++)
-	{
-		if (mem[i]->ID == ID)
-		{
-			if (mem[i]->PASSWORD == PASS)
-			{
-				Log_Menu();
-			}
-		}
-	}
-	
-	cout << "비밀번호 입력 : ";
-	cin >> PASS;
-}
-
-int Log_Menu()
-{
-	int ch;
-
-	cout << "========Menu========" << endl;
-	cout << "  1.회원 정보" << endl;
-	cout << "  2.회원 정보 변경" << endl;
-	cout << "  3.로그아웃" << endl;
-	cout << "입력 : ";
-	cin >> ch;
-
-	return ch;
-}
-
-void Info(Member* Member)
-{
-	cout << "============회원 정보============" << endl;
-	cout << "ID : " << Member->ID << "   닉네임 : " << Member->name << endl;
-	cout << "나이 : " << Member->age << "살   휴대폰 번호 : " << Member->phone_num << endl;
-	cout << "마일리지 : " << Member->point << endl;
-}
-
-int Info_ReMenu(Member* Member)
-{
-	int ch;
-
-	Info(*Member_List);
-	cout << "===================" << endl;
-	cout << "1.닉네임 변경" << endl;
-	cout << "2.나이 변경" << endl;
-	cout << "3.휴대폰 번호 변경" << endl;
-	cout << "4.돌아가기" << endl;
-	cout << "입력 : ";
-
-	cin >> ch;
-	return ch;
-}
-
-void Info_Re(Member* Member)
-{
 	while (1)
 	{
-		switch (Info_ReMenu(*Member_List))
+		system("cls");
+		cout << "아이디 입력 : ";
+		cin >> ID;
+		cout << "비밀번호 입력 : ";
+		cin >> PASS;
+
+		for (int i = 0; i < member_count; i++)
+		{
+			if (mem[i]->ID == ID)
+			{
+				if (mem[i]->PASSWORD == PASS)
+				{
+					Log_Menu(i);
+				}
+				else
+				{
+					cout << "비밀번호가 틀렸습니다.";
+					system("pause");
+					Sign_In(Member_List);
+				}
+			}	
+		}
+		cout << "해당 아이디가 없습니다.";
+		system("pause");
+	}
+}
+
+void Log_Menu(int num)
+{
+	int ch;
+
+	while (1)
+	{
+		system("cls");
+		cout << "========Menu========" << endl;
+		cout << "  1.회원 정보" << endl;
+		cout << "  2.회원 정보 변경" << endl;
+		cout << "  3.로그아웃" << endl;
+		cout << "입력 : ";
+		cin >> ch;
+
+		switch (ch)
 		{
 		case 1:
-			cout << "현재 닉네임 : " << Member->name;
-			cout << "변경할 닉네임 입력 : ";
-			cin >> Member->name;
-			cout << "->" << Member->name;
+			Info(Member_List, num);
+			system("pause");
 			break;
 		case 2:
-			cout << "현재 나이 : " << Member->age;
-			cout << "변경할 나이 입력 : ";
-			cin >> Member->age;
-			cout << "->" << Member->name;
+			Info(Member_List, num);
+			Info_ReMenu(Member_List, num);
+
 			break;
 		case 3:
-			cout << "현재 휴대폰 번호 : " << Member->phone_num;
-			cout << "변경할 휴대폰 번호 입력 : ";
-			cin >> Member->phone_num;
-			cout << "->" << Member->phone_num;
-			break;
-		case 4:
-			Log_Menu();
+			main();
 			break;
 		default:
 			break;
 		}
 	}
+}
+
+void Info(Member* Member[], int num)
+{
+	system("cls");
+	cout << "============회원 정보============" << endl;
+	cout << "ID : " << Member[num]->ID << "   닉네임 : " << Member[num]->name << endl;
+	cout << "나이 : " << Member[num]->age << "살   휴대폰 번호 : " << Member[num]->phone_num << endl;
+	cout << "마일리지 : " << Member[num]->point <<"원"<< endl;
+}
+
+void Info_ReMenu(Member* Member[], int num)
+{
+	int ch;
+	while (1)
+	{
+		Info(Member_List, num);
+		cout << "===================" << endl;
+		cout << "1.닉네임 변경" << endl;
+		cout << "2.나이 변경" << endl;
+		cout << "3.휴대폰 번호 변경" << endl;
+		cout << "4.돌아가기" << endl;
+		cout << "입력 : ";
+
+		cin >> ch;
+
+		Info_Re(Member_List, num, ch);
+	}	
+}
+
+void Info_Re(Member* Member[], int num, int ch)
+{
+	string save_blank;
+	int s_age, s_phonenum;
+
+		switch (ch)
+		{
+		case 1:
+			save_blank = Member[num]->name;
+			cout << "현재 닉네임 : " << Member[num]->name << endl;
+			cout << "변경할 닉네임 입력 : ";
+			cin >> Member[num]->name;
+			cout << save_blank << "->" << Member[num]->name<<endl;
+			system("pause");
+			break;
+		case 2:
+			s_age = Member[num]->age;
+			cout << "현재 나이 : " << Member[num]->age << endl;
+			cout << "변경할 나이 입력 : ";
+			cin >> Member[num]->age;
+			cout << s_age << "->" << Member[num]->age<<endl;
+			system("pause");
+			break;
+		case 3:
+			s_phonenum = Member[num]->phone_num;
+			cout << "현재 휴대폰 번호 : " << Member[num]->phone_num << endl;
+			cout << "변경할 휴대폰 번호 입력 : ";
+			cin >> Member[num]->phone_num;
+			cout << s_phonenum << "->" << Member[num]->phone_num<<endl;
+			system("pause");
+			break;
+		case 4:
+			Log_Menu(num);
+			break;
+		default:
+			break;
+		}
 }
