@@ -5,19 +5,26 @@
 using namespace std;
 
 #define MAX 10
+#define ZeroMemory RtlZeroMemory
+#define RtlZeroMemory(Destination,Length) memset((Destination),0,(Length))
 
 typedef struct member
 {
-	char ID[20];
+	/*char ID[20];
 	char PASSWORD[20];
-	char name[20];
+	char name[20];*/
 
-	/*string ID;
+	string ID;
 	string PASSWORD;
-	string name;*/
+	string name;
 	int age;
 	int phone_num;
 	int point;
+
+	member()
+	{
+		ZeroMemory(&age, (sizeof(*this) - sizeof(std::string) * 3));
+	}
 }Member;
 
 int menu();
@@ -81,6 +88,7 @@ bool IsEnglish(char ch)
 
 void Sign_UP(Member* mem[], int* num)
 {
+	(string*)malloc(sizeof(string));
 	string WORDPASS;
 
 	system("cls");
