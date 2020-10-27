@@ -1,3 +1,7 @@
 ﻿  main.cpp
-c:\users\user\desktop\study\c_c++\문제 풀이\c++\login\login\main.cpp(37): warning C4326: 'main'의 반환 형식이 'int'이어야 하는데 'void'입니다.
-  Login.vcxproj -> C:\Users\USER\Desktop\study\C_C++\문제 풀이\C++\Login\Debug\Login.exe
+c:\users\ta-a-04\desktop\study\c_c++\문제 풀이\c++\login\login\main.cpp(46): warning C4326: 'main'의 반환 형식이 'int'이어야 하는데 'void'입니다.
+c:\users\ta-a-04\desktop\study\c_c++\문제 풀이\c++\login\login\main.cpp(132): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\ta-a-04\desktop\study\c_c++\문제 풀이\c++\login\login\main.cpp(173): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\ta-a-04\desktop\study\c_c++\문제 풀이\c++\login\login\main.cpp(183): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\ta-a-04\desktop\study\c_c++\문제 풀이\c++\login\login\main.cpp(188): warning C4018: '>=': signed 또는 unsigned가 일치하지 않습니다.
+  Login.vcxproj -> C:\Users\TA-A-04\Desktop\study\C_C++\문제 풀이\C++\Login\Debug\Login.exe

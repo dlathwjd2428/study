@@ -29,6 +29,15 @@ typedef struct member
 
 int menu();
 void Sign_UP(Member* mem[], int* num);
+void SignUP_ID(Member* mem[], int* num);
+void SignUP_PASS(Member* mem[], int* num);
+
+void Sign_In();
+int Log_Menu();
+void Info(Member* Member);
+int Info_ReMenu(Member* Member);
+void Info_Re(Member* Member);
+
 
 Member* Member_List[MAX];
 
@@ -46,15 +55,16 @@ void main()
 				system("pause");
 				break;
 			}
-			Member_List[member_count] = (Member*)malloc(sizeof(Member));
+			Member_List[member_count] = new Member;
 			Sign_UP(Member_List, &member_count);
 			break;
 		case 2:
+			Sign_In();
 			break;
 		case 3:
 			for (int i = 0; i < member_count; i++)
 			{
-				free(Member_List[i]);
+				delete(Member_List[i]);
 			}
 			exit(0);
 			break;
@@ -68,6 +78,7 @@ int menu()
 {
 	int ch;
 
+	system("cls");
 	cout << "=====Login=====(회원수[" << member_count <<"명])"<<endl;
 	cout << "  1.회원가입" << endl;
 	cout << "  2.로그인" << endl;
@@ -78,41 +89,29 @@ int menu()
 	return ch;
 }
 
-bool IsEnglish(char ch)
+bool IsEngNum(char ch)
 {
-	if ((0x61 <= ch && ch <= 0x7A) || (0x41 <= ch && ch <= 0x5A))
+	if ((0x61 <= ch && ch <= 0x7A) || (0x41 <= ch && ch <= 0x5A)||(0x30 <= ch && ch <= 0x39))
 		return true;
 	else
 		return false;
 }
 
+bool IsNum(char ch)
+{
+	if ((0x30 <= ch && ch <= 0x39))
+		return true;
+	else
+		return false;
+}
+
+
 void Sign_UP(Member* mem[], int* num)
 {
-	(string*)malloc(sizeof(string));
-	string WORDPASS;
-
-	system("cls");
-	cout << "아이디 입력([3글자↑] AND [한글x]) : ";
-	cin >> mem[*num]->ID;
-
-	/*if (mem->ID.length() < 3)
-	{
-		cout << "id가 세글자 이하 입니다." << endl;
-	}
-	*/
-
+	SignUP_ID(Member_List, &member_count);
+	SignUP_PASS(Member_List, &member_count);
 	
-	cout << "비밀번호 입력([8글자↑]AND[영문]AND[숫자 포함]) : ";
-	cin >> mem[*num]->PASSWORD;
-	cout << "비밀번호 확인 : ";
-	cin >> WORDPASS;
-
-	/*if (mem[*num]->PASSWORD.length() < 8)
-		cout << "Password가 여덟글자 이하 입니다." << endl;
-	if (mem[*num]->PASSWORD != WORDPASS)
-		cout << "비밀번호가 일치하지 않습니다." << endl;
-		*/
-	//숫자 포함 안된거	
+	system("cls");
 	cout << "닉네임 입력 : ";
 	cin >> mem[*num]->name;
 	cout << "나이 입력 : ";
@@ -124,13 +123,101 @@ void Sign_UP(Member* mem[], int* num)
 	system("pause");
 }
 
-void Sign_In()
+void SignUP_ID(Member* mem[], int* num)
+{
+	system("cls");
+	cout << "아이디 입력([3글자↑] AND [한글x]) : ";
+	cin >> mem[*num]->ID;
+
+	for (int i = 0; i < mem[*num]->ID.length(); i++)
+	{
+		if (IsEngNum(mem[*num]->ID[i]) == false)
+		{
+			cout << "id가 영문이 아닙니다." << endl;
+			system("pause");
+			SignUP_ID(Member_List, &member_count);
+		}
+	}
+
+	if (mem[*num]->ID.length() < 3)
+	{
+		cout << "id가 세글자 이하 입니다." << endl;
+		system("pause");
+		SignUP_ID(Member_List, &member_count);
+	}
+}
+
+void SignUP_PASS(Member* mem[], int* num)
+{
+	string WORDPASS;
+
+	system("cls");
+	cout << "비밀번호 입력([8글자↑]AND[영문]AND[숫자 포함]) : ";
+	cin >> mem[*num]->PASSWORD;
+	cout << "비밀번호 확인 : ";
+	cin >> WORDPASS;
+
+	if (mem[*num]->PASSWORD.length() < 8)
+	{
+		cout << "Password가 여덟글자 이하 입니다." << endl;
+		system("pause");
+		SignUP_PASS(Member_List, &member_count);
+	}		
+	if (mem[*num]->PASSWORD != WORDPASS)
+	{
+		cout << "비밀번호가 일치하지 않습니다." << endl;
+		system("pause");
+		SignUP_PASS(Member_List, &member_count);
+	}		
+
+	for (int i = 0; i < mem[*num]->PASSWORD.length(); i++)
+	{
+		if (IsEngNum(mem[*num]->PASSWORD[i]) == false)
+		{
+			cout << "Password가 영문이 아닙니다." << endl;
+			system("pause");
+			SignUP_PASS(Member_List, &member_count);
+		}
+	}
+
+	for (int i = 0; i < mem[*num]->PASSWORD.length(); i++)
+	{
+		if (IsNum(mem[*num]->PASSWORD[i]) == false)
+		{
+			i++;
+			if (i >= mem[*num]->PASSWORD.length() - 1)
+			{
+				cout << "숫자가 포함되어 있지 않습니다." << endl;
+				system("pause");
+				SignUP_PASS(Member_List, &member_count);
+			}
+		}
+		else
+		{
+			break;
+		}
+	}
+}
+
+void Sign_In(Member* mem[])
 {
 	string ID;
 	string PASS;
 
 	cout << "아이디 입력 : ";
 	cin >> ID;
+
+	for (int i = 0; i < member_count; i++)
+	{
+		if (mem[i]->ID == ID)
+		{
+			if (mem[i]->PASSWORD == PASS)
+			{
+				Log_Menu();
+			}
+		}
+	}
+	
 	cout << "비밀번호 입력 : ";
 	cin >> PASS;
 }
