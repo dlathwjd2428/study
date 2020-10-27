@@ -1,6 +1,0 @@
-﻿  main.cpp
-c:\users\user\desktop\study\c_c++\문제 풀이\chapter7\chapter7_학생관리시스템_파일입출력\file_student\main.cpp(30): warning C4326: 'main'의 반환 형식이 'int'이어야 하는데 'void'입니다.
-c:\users\user\desktop\study\c_c++\문제 풀이\chapter7\chapter7_학생관리시스템_파일입출력\file_student\main.cpp(42): warning C4473: 'printf': 서식 문자열에 대한 인수가 충분하게 전달되지 않았습니다.
-  c:\users\user\desktop\study\c_c++\문제 풀이\chapter7\chapter7_학생관리시스템_파일입출력\file_student\main.cpp(42): note: 자리 표시자 및 해당 매개 변수에는 variadic 인수가 1개 필요하지만 0개가 제공되었습니다.
-  c:\users\user\desktop\study\c_c++\문제 풀이\chapter7\chapter7_학생관리시스템_파일입출력\file_student\main.cpp(42): note: 누락된 variadic 인수 1이(가) 서식 문자열 '%d'에 필요합니다.
-  file_student.vcxproj -> C:\Users\USER\Desktop\study\C_C++\문제 풀이\Chapter7\Chapter7_학생관리시스템_파일입출력\Debug\file_student.exe

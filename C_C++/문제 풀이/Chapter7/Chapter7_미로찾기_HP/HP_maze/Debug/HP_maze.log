@@ -1,4 +1,0 @@
-﻿  maze.cpp
-c:\users\ta-a-04\desktop\study\c_c++\문제 풀이\chapter7\chapter7_미로찾기_hp\hp_maze\maze.cpp(166): warning C4101: 'buf' :참조되지 않은 지역 변수입니다.
-c:\users\ta-a-04\desktop\study\c_c++\문제 풀이\chapter7\chapter7_미로찾기_hp\hp_maze\maze.cpp(421): warning C4326: 'main'의 반환 형식이 'int'이어야 하는데 'void'입니다.
-  HP_maze.vcxproj -> C:\Users\TA-A-04\Desktop\study\C_C++\문제 풀이\Chapter7\Chapter7_미로찾기_HP\Debug\HP_maze.exe
