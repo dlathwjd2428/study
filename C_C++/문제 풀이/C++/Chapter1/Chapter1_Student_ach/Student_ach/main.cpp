@@ -14,14 +14,16 @@ public:
 	int Kor;
 	int Eng;
 	int Math;
+	string avr;
 }Student;
 
 int menu();
 void SetRegister(Student St[], int *num);
 void ShowStudent(Student *St);
-void result(float avr);
+void result(Student *St, float avr);
 void Search(Student * St[]);
 void ShowGrade(Student* Student_List[], int grade);
+void ShowAvr(Student* Student_List[], string Avr);
 
 Student* Student_List[MAX];
 
@@ -55,6 +57,13 @@ void main()
 			Search(Student_List);
 			break;
 		case 4:
+			system("cls");
+			ShowAvr(Student_List,"A");
+			ShowAvr(Student_List, "B");
+			ShowAvr(Student_List, "C");
+			ShowAvr(Student_List, "D");
+			ShowAvr(Student_List, "F");
+			system("Pause");
 			break;
 		case 5:
 			system("cls");
@@ -63,11 +72,16 @@ void main()
 			ShowGrade(Student_List, 3);
 			system("Pause");
 			break;
-		case 6:
+		case 6:	
+			system("cls");
 			for (int i = 0; i < StudentCount; i++)
 			{
+				cout << i+1 << "번 학생 : " << Student_List[i]->name<<endl;
+				cout << "할당 해제 완료"<<endl;
 				delete Student_List[i];
-			}		
+			}	
+			system("pause");
+			exit(0);
 		}
 	}
 }
@@ -89,6 +103,9 @@ int menu()
 
 void SetRegister(Student St[], int *num)
 {
+	int total; 
+	float avr;
+
 	St->grade_num = ++(*num);
 	system("cls");
 	cout << "   ======" << *num << "번째 학생======" << endl;
@@ -105,12 +122,16 @@ void SetRegister(Student St[], int *num)
 	cout << "   국어점수 : ";	cin >> St->Kor;
 	cout << "   영어점수 : ";	cin >> St->Eng;
 	cout << "   수학점수 : ";	cin >> St->Math;
+
+	total = (St->Kor + St->Eng + St->Math);
+	avr = total / 3; 
+	result(St, avr);
 }
 
 void ShowStudent(Student *St)
 {
-		int total = (St->Kor + St->Eng + St->Math);
-		float avr = total / 3;
+	int total = (St->Kor + St->Eng + St->Math);
+	float totalavr = total / 3.0;
 		cout << "   ======" << St->grade_num << "번째 학생======" << endl;
 		cout << "   이름 : " << St->name << endl;
 		cout << "   나이 : " << St->age << endl;
@@ -118,31 +139,35 @@ void ShowStudent(Student *St)
 		cout << "   국어점수 : " << St->Kor << endl;
 		cout << "   영어점수 : " << St->Eng << endl;
 		cout << "   수학점수 : " << St->Math << endl;
-		cout << "   합계 점수 : " << total << "   평균 점수 : " << avr << endl;
-		cout << "   등급 : ";
-		result(avr);	
+		cout << "   합계 점수 : " << total << "   평균 점수 : ";
+		cout << fixed;
+		cout.precision(2);
+		cout << totalavr << endl;
+		cout << "   등급 : [" << St->avr<<"]"<<endl<<endl;
 }
-void result(float avr)
+void result(Student *St, float avr)
 {
 	if (avr >= 90)
-		cout << "[A]" << endl << endl;
+		St->avr = "A";	
 	else if (avr < 90 && avr >= 80)
-		cout << "[B]" << endl << endl;
+		St->avr = "B";		
 	else if (avr < 80 && avr >= 70)
-		cout << "[C]" << endl << endl;
+		St->avr = "C";
 	else if (avr < 70 && avr >= 60)
-		cout << "[D]" << endl << endl;
+		St->avr = "D";	
 	else
-		cout << "[F]" << endl << endl;
+		St->avr = "F";
 }
 
 void Search(Student * St[])
 {
 	string Search_name;
-
+	bool Flag;
 	system("cls");
 	cout << "이름입력 : ";
 	cin >> Search_name;
+
+	Flag = false;
 
 	for (int i = 0; i < StudentCount ; i++)
 	{
@@ -150,21 +175,29 @@ void Search(Student * St[])
 		{
 			ShowStudent(Student_List[i]);
 			system("pause");
+			Flag = true;
+			break;
 		}
 		else
 		{
-			cout << "해당 학생이 없습니다." << endl;
-			system("pause");
+			Flag = false;
 		}
+	}
+	if (Flag == false)
+	{
+		cout << "해당 학생이 없습니다." << endl;
+		system("pause");
 	}
 }
 
 void ShowGrade(Student* Student_List[], int grade)
 {
-	cout << "┏───────" << grade << " 학년──────┓"<<endl;
+	cout << "┏───────" << grade <<" 학년──────┓"<<endl;
 	for (int i = 0; i < StudentCount; i++)
+	{
 		if (Student_List[i]->grade == grade)
 			ShowStudent(Student_List[i]);
+	}	
 	cout << "┗────────────────┛"<<endl;
 }
 
@@ -172,7 +205,11 @@ void ShowAvr(Student* Student_List[], string Avr)
 {
 	cout << "┏───────" << Avr << " 등급──────┓" << endl;
 	for (int i = 0; i < StudentCount; i++)
-		//if (Student_List[i]-> == Avr)
+	{
+		if (Student_List[i]->avr == Avr)
+		{
 			ShowStudent(Student_List[i]);
+		}
+	}
 	cout << "┗────────────────┛" << endl;
 }
