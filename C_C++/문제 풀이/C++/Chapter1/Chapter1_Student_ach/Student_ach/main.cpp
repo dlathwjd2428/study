@@ -77,8 +77,8 @@ void main()
 			for (int i = 0; i < StudentCount; i++)
 			{
 				cout << i+1 << "번 학생 : " << Student_List[i]->name<<endl;
-				cout << "할당 해제 완료"<<endl;
 				delete Student_List[i];
+				cout << "할당 해제 완료" << endl;
 			}	
 			system("pause");
 			exit(0);
