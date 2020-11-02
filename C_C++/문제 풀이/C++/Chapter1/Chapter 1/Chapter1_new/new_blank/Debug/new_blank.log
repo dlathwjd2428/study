@@ -1,3 +1,0 @@
-﻿  main.cpp
-c:\users\ta-a-04\source\repos\new_blank\new_blank\main.cpp(12): warning C4326: 'main'의 반환 형식이 'int'이어야 하는데 'void'입니다.
-  new_blank.vcxproj -> C:\Users\TA-A-04\source\repos\new_blank\Debug\new_blank.exe

@@ -1,5 +1,0 @@
-﻿  main.cpp
-c:\users\ta-a-04\desktop\study\c_c++\문제 풀이\c++\chapter1\chapter1_student_ach\student_ach\main.cpp(33): warning C4326: 'main'의 반환 형식이 'int'이어야 하는데 'void'입니다.
-c:\users\ta-a-04\desktop\study\c_c++\문제 풀이\c++\chapter1\chapter1_student_ach\student_ach\main.cpp(127): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\ta-a-04\desktop\study\c_c++\문제 풀이\c++\chapter1\chapter1_student_ach\student_ach\main.cpp(134): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  Student_ach.vcxproj -> C:\Users\TA-A-04\Desktop\study\C_C++\문제 풀이\C++\Chapter1\Chapter1_Student_ach\Debug\Student_ach.exe
