@@ -17,36 +17,39 @@ void main()
 			Manager.AddStudent();
 			break;
 		case 2:
+			system("cls");
 			Manager.ShowStudentList();
+			system("pause");
 			break;
 		case 3:
+			system("cls");
 			Manager.ShowGradeList(1);
 			Manager.ShowGradeList(2);
 			Manager.ShowGradeList(3);
+			system("pause");
 			break;
 		case 4:
+			system("cls");
 			cout << "이름 입력 : ";
 			cin >> CheckName;
 			Manager.FindStudent(CheckName);
+			system("pause");
 			break;
 		case 5:
+			system("cls");
 			cout << "학년 입력 : ";
 			cin >> searchgrade;
 			Manager.ShowGradeList(searchgrade);
+			system("pause");
 			break;
 		case 6:
+			Manager.DeleteStudent(6);
 			break;
 		case 7:
+			Manager.DeleteStudent(7);
 			break;
 		case 8:
-			system("cls");
-			for (int i = 0; i < Manager.GetStudentCount(); i++)
-			{
-				cout << "할당 해제 완료" << endl;
-			}
-			system("pause");
 			exit(0);
-			break;
 		default:
 			cout << "잘못 입력하셨습니다.";
 			break;

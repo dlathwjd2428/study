@@ -7,10 +7,10 @@ StudentManager::StudentManager()
 
 void StudentManager::AddStudent()
 {
-	if (m_iStudentCount < STUDENT_MAX)
-	{
-		m_iStudentCount++;
+	if (m_iStudentCount <= STUDENT_MAX)
+	{	
 		m_StudentList[m_iStudentCount].SetStudent(m_iStudentCount);
+		m_iStudentCount++;		
 	}
 	else
 		cout << "더이상 학생을 등록할 수 없습니다." << endl;
@@ -48,11 +48,11 @@ void StudentManager::ShowGradeList(int num)
 	cout << "┏───────" << num << " 학년──────┓" << endl;
 	for (int i = 0; i < m_iStudentCount; i++)
 	{
-		/*if (m_StudentList[i].GetClass == num)
+		if (m_StudentList[i].GetClass() == num)
 		{
 			m_StudentList[i].ShowStudent();
 			studentcheck = true;
-		}	*/		
+		}	
 	}
 	cout << "┗────────────────┛" << endl;
 	
@@ -60,6 +60,18 @@ void StudentManager::ShowGradeList(int num)
 	{
 		cout << num << "학년 학생이 없습니다." << endl;
 	}
+}
+
+void StudentManager::DeleteStudent(int menu)
+{
+	if (menu == 6)
+	{
+		m_iStudentCount--;
+	}
+	else if (menu == 7)
+	{
+		m_iStudentCount = 0;
+	}	
 }
 
 StudentManager::~StudentManager()

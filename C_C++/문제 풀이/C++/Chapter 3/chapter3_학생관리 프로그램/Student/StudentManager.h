@@ -11,6 +11,7 @@ private:
 
 public:	
 	void AddStudent();
+	void DeleteStudent(int menu);
 	void ShowStudentList();
 	void ShowGradeList(int num);
 	void FindStudent(string Name);

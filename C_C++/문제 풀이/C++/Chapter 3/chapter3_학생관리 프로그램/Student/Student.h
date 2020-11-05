@@ -3,12 +3,18 @@
 #include <string>
 using namespace std;
 
+enum GENDER
+{
+	MAN,
+	WOMAN
+};
+
 class Student
 {
 private:
 	string m_strName;
 	int m_iAge;
-	int m_iGender;
+	GENDER m_eGender;
 	int m_iClass;
 	int m_iNumber;
 public:
