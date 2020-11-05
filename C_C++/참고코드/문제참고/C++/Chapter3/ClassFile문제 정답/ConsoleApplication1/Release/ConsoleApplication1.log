@@ -1,0 +1,17 @@
+﻿  Student.cpp
+  StudentManager.cpp
+c:\users\ta-a-04\desktop\study\c_c++\참고코드\문제참고\c++\chapter3\classfile문제 정답\consoleapplication1\studentmanager.cpp(13): error C2662: 'void Student::SetStudent(int)': 'this' 포인터를 'const Student'에서 'Student &'(으)로 변환할 수 없습니다.
+  c:\users\ta-a-04\desktop\study\c_c++\참고코드\문제참고\c++\chapter3\classfile문제 정답\consoleapplication1\studentmanager.cpp(13): note: 변환하면서 한정자가 손실됩니다.
+c:\users\ta-a-04\desktop\study\c_c++\참고코드\문제참고\c++\chapter3\classfile문제 정답\consoleapplication1\studentmanager.cpp(23): error C2662: 'void Student::ShowStudent(void)': 'this' 포인터를 'const Student'에서 'Student &'(으)로 변환할 수 없습니다.
+  c:\users\ta-a-04\desktop\study\c_c++\참고코드\문제참고\c++\chapter3\classfile문제 정답\consoleapplication1\studentmanager.cpp(23): note: 변환하면서 한정자가 손실됩니다.
+c:\users\ta-a-04\desktop\study\c_c++\참고코드\문제참고\c++\chapter3\classfile문제 정답\consoleapplication1\studentmanager.cpp(30): error C2662: 'std::string Student::GetName(void)': 'this' 포인터를 'const Student'에서 'Student &'(으)로 변환할 수 없습니다.
+  c:\users\ta-a-04\desktop\study\c_c++\참고코드\문제참고\c++\chapter3\classfile문제 정답\consoleapplication1\studentmanager.cpp(30): note: 변환하면서 한정자가 손실됩니다.
+c:\users\ta-a-04\desktop\study\c_c++\참고코드\문제참고\c++\chapter3\classfile문제 정답\consoleapplication1\studentmanager.cpp(32): error C2662: 'void Student::ShowStudent(void)': 'this' 포인터를 'const Student'에서 'Student &'(으)로 변환할 수 없습니다.
+  c:\users\ta-a-04\desktop\study\c_c++\참고코드\문제참고\c++\chapter3\classfile문제 정답\consoleapplication1\studentmanager.cpp(32): note: 변환하면서 한정자가 손실됩니다.
+c:\users\ta-a-04\desktop\study\c_c++\참고코드\문제참고\c++\chapter3\classfile문제 정답\consoleapplication1\studentmanager.cpp(45): error C2662: 'CLASS Student::GetClass(void)': 'this' 포인터를 'const Student'에서 'Student &'(으)로 변환할 수 없습니다.
+  c:\users\ta-a-04\desktop\study\c_c++\참고코드\문제참고\c++\chapter3\classfile문제 정답\consoleapplication1\studentmanager.cpp(45): note: 변환하면서 한정자가 손실됩니다.
+c:\users\ta-a-04\desktop\study\c_c++\참고코드\문제참고\c++\chapter3\classfile문제 정답\consoleapplication1\studentmanager.cpp(47): error C2662: 'void Student::ShowStudent(void)': 'this' 포인터를 'const Student'에서 'Student &'(으)로 변환할 수 없습니다.
+  c:\users\ta-a-04\desktop\study\c_c++\참고코드\문제참고\c++\chapter3\classfile문제 정답\consoleapplication1\studentmanager.cpp(47): note: 변환하면서 한정자가 손실됩니다.
+c:\users\ta-a-04\desktop\study\c_c++\참고코드\문제참고\c++\chapter3\classfile문제 정답\consoleapplication1\studentmanager.cpp(63): error C2662: 'void Student::ShowStudent(void)': 'this' 포인터를 'const Student'에서 'Student &'(으)로 변환할 수 없습니다.
+  c:\users\ta-a-04\desktop\study\c_c++\참고코드\문제참고\c++\chapter3\classfile문제 정답\consoleapplication1\studentmanager.cpp(63): note: 변환하면서 한정자가 손실됩니다.
+  소스.cpp
