@@ -21,11 +21,11 @@ public:
 
 	void SetStudent(int Number);
 	void ShowStudent();
-	inline string GetName()
+	inline string GetName() const
 	{
 		return m_strName;
 	}
-	inline int GetClass()
+	inline int GetClass() const
 	{
 		return m_iClass;
 	}

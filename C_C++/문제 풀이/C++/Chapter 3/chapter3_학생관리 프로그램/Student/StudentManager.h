@@ -16,7 +16,7 @@ public:
 	void ShowGradeList(int num);
 	void FindStudent(string Name);
 
-	inline int GetStudentCount()
+	inline int GetStudentCount() const
 	{
 		return m_iStudentCount;
 	}
