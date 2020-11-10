@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.438
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "overload", "overload\overload.vcxproj", "{F3E36EBA-707C-45A9-BDED-EBB06067FE7F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F3E36EBA-707C-45A9-BDED-EBB06067FE7F}.Debug|x64.ActiveCfg = Debug|x64
+		{F3E36EBA-707C-45A9-BDED-EBB06067FE7F}.Debug|x64.Build.0 = Debug|x64
+		{F3E36EBA-707C-45A9-BDED-EBB06067FE7F}.Debug|x86.ActiveCfg = Debug|Win32
+		{F3E36EBA-707C-45A9-BDED-EBB06067FE7F}.Debug|x86.Build.0 = Debug|Win32
+		{F3E36EBA-707C-45A9-BDED-EBB06067FE7F}.Release|x64.ActiveCfg = Release|x64
+		{F3E36EBA-707C-45A9-BDED-EBB06067FE7F}.Release|x64.Build.0 = Release|x64
+		{F3E36EBA-707C-45A9-BDED-EBB06067FE7F}.Release|x86.ActiveCfg = Release|Win32
+		{F3E36EBA-707C-45A9-BDED-EBB06067FE7F}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {59CF5435-A6D2-451E-9B0B-5B6A3CB5E2BF}
+	EndGlobalSection
+EndGlobal
