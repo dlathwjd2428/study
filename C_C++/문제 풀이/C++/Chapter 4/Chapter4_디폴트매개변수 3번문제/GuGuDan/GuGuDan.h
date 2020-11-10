@@ -9,4 +9,5 @@ private:
 	int last;
 public:
 	void SetDan(int first = 2, int last = 9);
+	void GetGuGu();
 };
