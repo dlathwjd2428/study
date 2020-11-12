@@ -8,7 +8,8 @@ void main()
 	char q2_1;
 	string q3_1;
 	string q4_1, q4_2;
-	char num[5] = {};
+	int num[5] = {};
+	char ch[5] = {};
 
 	cout << "1.정수 2개 입력 : ";
 	cin >> q1_1 >> q1_2;
@@ -32,4 +33,13 @@ void main()
 		cin >> num[i];
 	}
 
+	Quiz.load(num);
+
+	cout << "6.단일 문자 5개 입력 : ";
+	for (int i = 0 ; i < 5; i++)
+	{
+		cin >> ch[i];
+	}
+
+	Quiz.load(ch);
 }
