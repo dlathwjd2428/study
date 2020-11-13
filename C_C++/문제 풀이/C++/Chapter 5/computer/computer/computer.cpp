@@ -45,8 +45,6 @@ void Computer::main_system(int ch)
 
 void Computer::print()
 {
-
-
 	system("cls");
 	cout << "제 품 명 : " << name << endl;
 	cout << "현재 상태 : ";
@@ -83,7 +81,6 @@ void Computer::systemcall(int ch)
 	{
 	case 1:
 		system("calc");
-		system("pause");
 		break;
 	case 2:
 		system("notepad");
