@@ -2,6 +2,9 @@
 
 void main()
 {
-	Phone p1;
-	p1.Checklength();
+	while (1)
+	{
+		Phone p1;
+		p1.CheckNum();
+	}
 }

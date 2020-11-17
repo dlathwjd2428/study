@@ -11,7 +11,7 @@ private:
 public:
 	Phone();
 	void PrintPhoneNum();
-	void Checklength();
+	void Checklength(int ch);
 	void CheckNum();
 	~Phone();
 };
