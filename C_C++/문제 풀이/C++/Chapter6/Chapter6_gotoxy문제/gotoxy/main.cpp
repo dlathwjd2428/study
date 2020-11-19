@@ -10,6 +10,6 @@ void main()
 	//DrawManager.TextDraw("Hello~~", Width, Height*0.6);
 	DrawManager.DrawPoint("¢»", Width* 0.5, Height * 0.5);
 	_getch();
-	DrawManager.ErasePoint(Width*0.5, Height*0.7);
+	DrawManager.ErasePoint(Width*0.5, Height*0.5);
 	DrawManager.gotoxy(0, Height + 1);
 }

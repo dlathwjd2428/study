@@ -1,9 +1,18 @@
 #pragma once
 #include"Mecro.h"
+
 class MapDraw
 {
+private:
+	int Width;
+	int Height;
+
 public:
-	void BoxDraw(int Start_x, int Start_y, int Width, int Height);
+	int StartMenu();
+	int SetMenu();
+	void ReSetMenu();
+	void DrawMap(int Start_x, int Start_y, int Width, int Height);
+	void DrawBox(int Start_x, int Start_y, int Width, int Height);
 	void DrawPoint(string str, int x, int y);
 	void DrawMidText(string str, int x, int y);
 	void TextDraw(string str, int x, int y);

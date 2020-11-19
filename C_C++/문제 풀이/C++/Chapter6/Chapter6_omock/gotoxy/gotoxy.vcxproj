@@ -121,6 +121,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapDraw.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="SetMapDraw.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MapDraw.h" />
