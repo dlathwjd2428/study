@@ -1,13 +1,16 @@
-#include "MapDraw.h"
+#include "SetMenu.h"
+#include "PlayGame.h"
 
 void main()
 {
-	MapDraw DrawManager;
+	Menu DrawManager;
+	PlayGame GameManager;
 	while (1)
 	{
 		switch (DrawManager.StartMenu())
 		{
 		case GAMESTART:
+			GameManager.OnPlayGame();
 			break;
 		case GAMESETTING:
 			DrawManager.SetMenu();

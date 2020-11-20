@@ -120,12 +120,15 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapDraw.cpp" />
+    <ClCompile Include="PlayGame.cpp" />
+    <ClCompile Include="SetMenu.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="SetMapDraw.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MapDraw.h" />
     <ClInclude Include="Mecro.h" />
+    <ClInclude Include="PlayGame.h" />
+    <ClInclude Include="SetMenu.h" />
     <ClInclude Include="Player.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
