@@ -5,6 +5,7 @@ MapDraw::MapDraw()
 {
 	Width = 20;
 	Height = 20;
+
 }
 
 void MapDraw::ErasePoint(int x, int y)

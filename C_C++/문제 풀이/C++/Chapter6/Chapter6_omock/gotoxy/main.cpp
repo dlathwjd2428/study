@@ -10,7 +10,7 @@ void main()
 		switch (DrawManager.StartMenu())
 		{
 		case GAMESTART:
-			GameManager.OnPlayGame();
+			GameManager.Init();
 			break;
 		case GAMESETTING:
 			DrawManager.SetMenu();
