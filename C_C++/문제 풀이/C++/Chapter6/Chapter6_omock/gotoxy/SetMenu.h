@@ -1,8 +1,8 @@
 #pragma once
 #include "Mecro.h"
-#include "MapDraw.h"
+#include "PlayGame.h"
 
-class Menu : public MapDraw
+class Menu : public PlayGame
 {
 public:
 	int StartMenu();

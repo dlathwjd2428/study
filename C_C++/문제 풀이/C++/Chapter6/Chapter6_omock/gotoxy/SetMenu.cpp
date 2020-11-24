@@ -152,6 +152,7 @@ void Menu::Re_Stone()
 void Menu::Re_Skip()
 {
 	int skip;
+	int _skipcount;
 
 	system("cls");
 	DrawBox(0, 0, Width, Height);
@@ -165,8 +166,13 @@ void Menu::Re_Skip()
 	switch (skip)
 	{
 	case 1:
+		DrawMidText("물리기 횟수 입력 : ", Width, Height*0.7);
+		cin >> _skipcount;
+
+		skipcount = _skipcount;
 		break;
 	case 2:
+		skipcount = 0;
 		break;
 	case 3:
 		break;

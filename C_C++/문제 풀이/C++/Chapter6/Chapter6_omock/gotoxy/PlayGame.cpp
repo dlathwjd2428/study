@@ -2,12 +2,20 @@
 
 PlayGame::PlayGame()
 {
-	board = new int *[Height];
-	for (int i = 0; i < Height; i++)
+	board = new int *[Width];
+	for (int i = 0; i < Width; i++)
 	{
-		board[i] = new int[Width];
-		memset(board[i], 0, sizeof(board));
+		board[i] = new int[Height];
 	}
+
+	for (int i = 0; i < Width; i++)
+	{
+		memset(board[i], 0, sizeof(int)*Height);
+	}
+
+
+
+	board[5][5] = CURSER;
 	turncount = 1;
 	skipcount = 3;
 }
@@ -31,19 +39,84 @@ void PlayGame :: Init()
 
 void PlayGame::OnPlayGame()
 {
-	DrawMap(0, 0, Width, Height);
+
+	//DrawPoint("●", Width* 0.5, Height * 0.5);
+
+	while (1)
+	{
+		DrawMap(0, 0, Width, Height);
+		DrawStone();
+		Move();
+	}
+}
+
+void PlayGame::Move()
+{
+	char ch;
+	ch = _getch();
+	system("cls");
+	board[curser[Y]][curser[X]] = NULL;
+	switch (ch)
+	{
+	case LEFT:
+		if (board[curser[Y]][curser[X] - 1] != 0)
+		{
+			curser[X]--;
+		}
+		break;
+	case RIGHT:
+		if (board[curser[Y]][curser[X] + 1] != Width)
+		{
+			curser[X]++;
+		}
+		break;
+	case UP:
+		if (board[curser[Y] - 1][curser[X]] != 0)
+		{
+			curser[Y]--;
+		}
+		break;
+	case DOWN:
+		if (board[curser[Y] + 1][curser[X]] != Height)
+		{
+			curser[Y]++;
+		}
+		break;
+	}
+	WinnerCheck();
+	board[curser[Y]][curser[X]] = CURSER;
+}
+
+void PlayGame::DrawStone()
+{
+	gotoxy(Width*0.5, Height*0.5);
+
+	for (int y = 0; y < Height; y++)
+	{
+		for (int x = 0; x < Width; x++)
+		{
+			if(board[y][x] == CURSER)
+				cout << "●";
+
+		}
+	}
 	gotoxy(0, Height);
 	cout << "Turn : " << turncount << endl;
 	cout << "돌 놓기 : z, 무르기 : x, 종료 : ESC" << endl;
 	cout << "옵션 : p" << endl;
 	cout << "무르기 횟수 : " << skipcount << "           " << P1;
-	system("pause");
+}
+
+void PlayGame::WinnerCheck()
+{
+
 }
 
 void PlayGame::OnSkip()
 {
 	
 }
+
 
 PlayGame::~PlayGame()
 {

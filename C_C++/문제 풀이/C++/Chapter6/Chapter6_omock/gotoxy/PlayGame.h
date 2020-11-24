@@ -4,17 +4,23 @@
 
 class PlayGame : public MapDraw
 {
+protected:
+	int turncount;
+	int skipcount;
+
 private:
 	int **board;
+	int curser[2];
 	string P1;
 	string P2;
 
-	int turncount;
-	int skipcount;
-	bool skip;
+
 public:
 	void Init();
 	void OnPlayGame();
+	void Move();
+	void DrawStone();
+	void WinnerCheck();
 	void OnSkip();
 
 	PlayGame();
