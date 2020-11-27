@@ -6,6 +6,14 @@ MapDraw::MapDraw()
 	Width = 20;
 	Height = 20;
 
+	board = new int *[Width];
+	for (int i = 0; i < Width; i++)
+	{
+		board[i] = new int[Height];
+		memset(board[i], 0, sizeof(int)*Height);
+	}
+
+	board[5][5] = CURSER;
 }
 
 void MapDraw::ErasePoint(int x, int y)
@@ -101,6 +109,26 @@ void MapDraw::DrawBox(int Start_x, int Start_y, int Width, int Height)
 		}
 	}
 	return;
+}
+
+int MapDraw::DrawStone(int y, int x, int stone)
+{ // stone이 1이면 흑, 2면 백
+	if (board[y][x] || x < 0 || x >= Width || y < 0 || y >= Height)
+		return 0;
+	gotoxy(x, y);
+	if (stone == BLACK)
+	{
+		DRAW_BLACK;
+		board[y][x] = BLACK;
+	}
+	else if (stone == WHITE)
+	{
+		DRAW_WHITE;
+		board[y][x] = WHITE;
+	}
+	else
+		return 0;
+	return 1;
 }
 
 MapDraw::~MapDraw()

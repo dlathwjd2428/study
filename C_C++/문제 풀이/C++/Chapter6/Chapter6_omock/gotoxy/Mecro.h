@@ -8,9 +8,15 @@
 #include<Windows.h>
 using namespace std;
 
+#define DRAW_BLACK cout<<"¡Û"
+#define DRAW_WHITE cout<<"¡Ü"
+#define WHITE 2
+#define BLACK 1
+
 #define Y 0
 #define X 1
 #define CURSER 2
+#define BLANK 0
 
 #define ESC 27
 #define UP 72

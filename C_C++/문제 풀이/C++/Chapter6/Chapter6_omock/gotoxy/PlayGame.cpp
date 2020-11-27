@@ -2,20 +2,6 @@
 
 PlayGame::PlayGame()
 {
-	board = new int *[Width];
-	for (int i = 0; i < Width; i++)
-	{
-		board[i] = new int[Height];
-	}
-
-	for (int i = 0; i < Width; i++)
-	{
-		memset(board[i], 0, sizeof(int)*Height);
-	}
-
-
-
-	board[5][5] = CURSER;
 	turncount = 1;
 	skipcount = 3;
 }
@@ -39,9 +25,6 @@ void PlayGame :: Init()
 
 void PlayGame::OnPlayGame()
 {
-
-	//DrawPoint("¡Ü", Width* 0.5, Height * 0.5);
-
 	while (1)
 	{
 		DrawMap(0, 0, Width, Height);
@@ -54,6 +37,7 @@ void PlayGame::Move()
 {
 	char ch;
 	ch = _getch();
+
 	system("cls");
 	board[curser[Y]][curser[X]] = NULL;
 	switch (ch)
@@ -95,9 +79,8 @@ void PlayGame::DrawStone()
 	{
 		for (int x = 0; x < Width; x++)
 		{
-			if(board[y][x] == CURSER)
+			if (board[y][x] == CURSER)
 				cout << "¡Ü";
-
 		}
 	}
 	gotoxy(0, Height);

@@ -9,7 +9,6 @@ protected:
 	int skipcount;
 
 private:
-	int **board;
 	int curser[2];
 	string P1;
 	string P2;

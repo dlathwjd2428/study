@@ -4,13 +4,12 @@
 void main()
 {
 	Menu DrawManager;
-	PlayGame GameManager;
 	while (1)
 	{
 		switch (DrawManager.StartMenu())
 		{
 		case GAMESTART:
-			GameManager.Init();
+			DrawManager.Init();
 			break;
 		case GAMESETTING:
 			DrawManager.SetMenu();
