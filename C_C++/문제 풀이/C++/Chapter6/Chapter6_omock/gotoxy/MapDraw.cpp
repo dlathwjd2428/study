@@ -12,8 +12,6 @@ MapDraw::MapDraw()
 		board[i] = new int[Height];
 		memset(board[i], 0, sizeof(int)*Height);
 	}
-
-	board[5][5] = CURSER;
 }
 
 void MapDraw::ErasePoint(int x, int y)
