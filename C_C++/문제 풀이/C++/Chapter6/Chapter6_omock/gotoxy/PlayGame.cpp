@@ -1,5 +1,5 @@
 #include "PlayGame.h"
-//https://apape1225.tistory.com/32
+
 
 PlayGame::PlayGame()
 {

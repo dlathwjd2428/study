@@ -1,8 +1,0 @@
-﻿  PlayGame.cpp
-c:\users\ta-a-04\desktop\study\c_c++\문제 풀이\c++\chapter6\chapter6_omock\gotoxy\mapdraw.h(23): warning C4838: 'int'에서 'SHORT'(으)로의 변환에는 축소 변환이 필요합니다.
-c:\users\ta-a-04\desktop\study\c_c++\문제 풀이\c++\chapter6\chapter6_omock\gotoxy\playgame.cpp(14): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\ta-a-04\desktop\study\c_c++\문제 풀이\c++\chapter6\chapter6_omock\gotoxy\playgame.cpp(15): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\ta-a-04\desktop\study\c_c++\문제 풀이\c++\chapter6\chapter6_omock\gotoxy\playgame.cpp(17): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\ta-a-04\desktop\study\c_c++\문제 풀이\c++\chapter6\chapter6_omock\gotoxy\playgame.cpp(67): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-c:\users\ta-a-04\desktop\study\c_c++\문제 풀이\c++\chapter6\chapter6_omock\gotoxy\playgame.cpp(95): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  gotoxy.vcxproj -> C:\Users\TA-A-04\Desktop\study\C_C++\문제 풀이\C++\Chapter6\Chapter6_omock\Debug\gotoxy.exe
